@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "generate-pwa-assets": "pwa-assets-generator --preset minimal public/logo.svg",
+    "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
@@ -14,7 +15,8 @@
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.15.14",
     "aos": "^3.0.0-beta.6",
-    "axios": "^1.6.8",
+    "axios": "^1.7.2",
+    "jsonwebtoken": "^9.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "6.3",

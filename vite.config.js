@@ -4,14 +4,19 @@ import { VitePWA } from 'vite-plugin-pwa';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  server : {
+    proxy : {
+      '/api' : 'http://localhost:5000'
+    }
+  },
   plugins: [
     react(), 
     VitePWA({ 
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
       manifest: {
-        name: 'Vite PWA Project',
-        short_name: 'Vite PWA Project',
+        name: 'HomeoPathy Case Taking',
+        short_name: 'HomeoPathy Case Taking',
         theme_color: '#ffffff',
         icons: [
             {
