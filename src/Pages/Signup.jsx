@@ -15,7 +15,7 @@ export default function SignIn() {
             email : email,
             password: password
         }
-        axios.post('/api/doctor/register', dobj)
+        axios.post('http://localhost:5000/api/doctor/register', dobj)
             .then((res) => {
                 if (res.data) {
                     alert("User registered successfully");
@@ -43,7 +43,7 @@ export default function SignIn() {
                         </div>
                         <div className='relative w-full'>
                             <i class="fa-solid fa-user absolute left-4 top-3 hover:text-[rgb(95,141,184)] text-gray-500 hover:transition-all hover:duration-500 hover:scale-125" style={{ fontSize: "25px" }}></i>
-                            <Inputs class="w-full" type="email" placeholder="email" changeevent={(e) => setname(e.target.value)} />
+                            <Inputs class="w-full" type="email" placeholder="email" changeevent={(e) => setemail(e.target.value)} />
                         </div>
                         <div className='relative w-full'>
                             <i class="fa-solid fa-lock absolute left-4 top-3 hover:text-[rgb(95,141,184)] text-gray-500 hover:transition-all hover:duration-500 hover:scale-125" style={{ fontSize: "25px" }}></i>
