@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 export default function SignIn() {
   const [name, setname] = useState()
   const [password, setpassword] = useState()
-  const [Error , setError] = useState('')
+  const [Error, setError] = useState('')
   const nav = useNavigate()
 
   function SignIn() {
@@ -16,17 +16,34 @@ export default function SignIn() {
       password: password
     }
     axios.post('/api/doctor/login', doctor)
-    .then((res) => {
-      if (res.data) {
-        alert("User logged in successfully");
-      }
-      console.log(res.data);
-    })
-    .catch((err) => {
-      const errorMessage = err.response?.data?.message || "An error occurred";
-      setError(errorMessage);
-      console.log(errorMessage);
-    });
+      .then((res) => {
+        if (res.data) {
+          nav("/home")
+        }
+        console.log(res.data);
+      })
+      .catch((error) => {
+        // Error
+        console.log(error.response.data.message);
+        // if (error.response.data.body == "Doctor not found") {
+        //   // The request was made and the server responded with a status code
+        //   // that falls out of the range of 2xx
+        //   // console.log(error.response.data);
+        //   alert("doctor not found")
+        //   // console.log(error.response.status);
+        //   // console.log(error.response.headers);
+        // } else if (error.request) {
+        //   // The request was made but no response was received
+        //   // `error.request` is an instance of XMLHttpRequest in the 
+        //   // browser and an instance of
+        //   // http.ClientRequest in node.js
+        //   // console.log(error.request);
+        // } else {
+        //   // Something happened in setting up the request that triggered an Error
+        //   // console.log('Error', error.message); 
+        // }
+        // // console.log(error.config);
+      });
 
 
   }
@@ -48,7 +65,7 @@ export default function SignIn() {
             </div>
             <div>
               <h1 className='text-[rgb(22,57,90)] font-bold text-sm text-center'>Forget Password?</h1>
-              <h1 className='text-[rgb(22,57,90)] font-bold text-sm text-center' onClick={()=>nav('/signup')}>Create an account Signup</h1>
+              <h1 className='text-[rgb(22,57,90)] font-bold text-sm text-center' onClick={() => nav('/signup')}>Create an account Signup</h1>
             </div>
             <Button name="Sign In" click={SignIn} />
           </div>

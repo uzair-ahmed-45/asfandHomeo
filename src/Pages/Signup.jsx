@@ -15,7 +15,7 @@ export default function SignIn() {
             email : email,
             password: password
         }
-        axios.post('http://localhost:5000/api/doctor/register', dobj)
+        axios.post('/api/doctor/register', dobj)
             .then((res) => {
                 if (res.data) {
                     alert("User registered successfully");
