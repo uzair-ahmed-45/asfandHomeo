@@ -5,8 +5,14 @@ import SignIn from './Pages/SignIn';
 import './App.css';
 import Home from './Pages/Home';
 import Signup from './Pages/Signup';
+import { config } from 'dotenv';
 
 function App() {
+  config({
+    path: "./env"
+  });
+
+
   return (
     <Router>
       <div>
