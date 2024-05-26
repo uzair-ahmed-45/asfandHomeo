@@ -10,12 +10,14 @@ export default function SignIn() {
   const [Error, setError] = useState('')
   const nav = useNavigate()
 
+  const apiUrl = process.env.REACT_APP_API_URL
+
   function SignIn() {
     const doctor = {
       name: name,
       password: password
     }
-    axios.post('/api/doctor/login', doctor)
+    axios.post(`${apiUrl}/doctor/login`, doctor)
       .then((res) => {
         if (res.data) {
           nav("/home")
