@@ -2,11 +2,13 @@ import React, { useState } from 'react'
 import Inputs from "../Components/Inputs"
 import Button from '../Components/Button'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 export default function SignIn() {
   const [name, setname] = useState()
   const [password, setpassword] = useState()
   const [Error , setError] = useState('')
+  const nav = useNavigate()
 
   function SignIn() {
     const doctor = {
@@ -46,6 +48,7 @@ export default function SignIn() {
             </div>
             <div>
               <h1 className='text-[rgb(22,57,90)] font-bold text-sm text-center'>Forget Password?</h1>
+              <h1 className='text-[rgb(22,57,90)] font-bold text-sm text-center' onClick={()=>nav('/signup')}>Create an account Signup</h1>
             </div>
             <Button name="Sign In" click={SignIn} />
           </div>
