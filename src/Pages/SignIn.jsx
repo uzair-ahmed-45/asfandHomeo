@@ -16,7 +16,6 @@ export default function SignIn() {
 
   useEffect(() => {
     if (verifyUser == false) {
-      alert("sign in first")
       nav("/")
 
     }
