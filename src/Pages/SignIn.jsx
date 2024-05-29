@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Inputs from "../Components/Inputs";
 import Button from '../Components/Button';
 import axios from 'axios';
@@ -12,8 +12,15 @@ export default function SignIn() {
   const [passmsg, setpassmsg] = useState(false);
   const { modal, setmodal , verifyUser , setverifyUser } = useModal()
 
-
   const nav = useNavigate();
+
+  useEffect(() => {
+    if (verifyUser == false) {
+      alert("sign in first")
+      nav("/")
+
+    }
+  }, [verifyUser])
 
   // const apiUrl = process.env.REACT_APP_API_URL;
   // console.log('API URL:', apiUrl);
