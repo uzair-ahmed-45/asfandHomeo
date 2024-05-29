@@ -6,7 +6,7 @@ import MobNavlist from '../Components/MobNavlist'
 export default function Navbar() {
     return (
         <>
-            <div className='w-[25vw] hidden sm:block bg-[rgb(22,57,90)]  h-screen'>
+            <div className='w-[25vw] hidden sm:block bg-[rgb(22,57,90)]  h-screen fixed top-0 left-0 right-0 '>
                 <div className=' text-white flex flex-col items-center justify-between gap-y-10 py-24'>
                     <div className='text-center'>
                         <h1 className='sm:text-sm md:text-md lg:text-lg '>HomeoPathy Case Taking</h1>
@@ -34,7 +34,7 @@ export default function Navbar() {
                 </div>
             </div>
             {/* mobile navbar */}
-            <div className='block sm:hidden fixed bottom-[-10px] left-0 right-0 bg-[rgb(22,57,90)] w-full py-5 rounded-xl px-4'>
+            <div className='block sm:hidden fixed bottom-[-10px] left-0 right-0 bg-[rgb(22,57,90)] w-full py-5 rounded-xl px-4 '>
                     <MobNavlist />
             </div>
 

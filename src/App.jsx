@@ -9,7 +9,8 @@ import Signup from './Pages/Signup';
 function App() {
   return (
     <Router>
-      <div>
+      <div className='bg-gray-300 h-screen'>
+        <Navbar />
         <Routes>
           <Route path="/" element={<SignIn />} />
           <Route path="/home" element={<Home />} />
