@@ -7,7 +7,7 @@ export default function Patientform() {
     return (
         <>
             <Navbar />
-            <div className='h-[120vh] bg-gray-200 ms-0 sm:h-screen sm:ms-44 md:ms-48 lg:ms-80 w-[70vw] m-auto flex justify-between items-center sm:justify-center flex-col sm:flex-row '>
+            <div className='h-[100vh] bg-gray-200 ms-0 sm:h-screen sm:ms-44 md:ms-48 lg:ms-80 w-[70vw] m-auto flex justify-between sm:justify-center flex-col sm:flex-row '>
                 <form action="" className='px-5 py-5 mt-5 sm:mt-20 bg-white rounded-xl shadow-xl flex flex-col justify-between gap-y-4 w-[90vw] sm:w-[55vw] '>
                     <h1 className='text-xl font-bold text-[rgb(22,57,90)] text-center'>Add a Patient</h1>
                     <div className='flex justify-between items-center gap-x-2 sm:gap-x-5'>
