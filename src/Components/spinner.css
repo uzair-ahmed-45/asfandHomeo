@@ -1,0 +1,13 @@
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: rgb(0, 0, 0); */
+    width: 100vw;
+    height: 100vh;
+    
+  }
+  
+  .spinner-wrapper {
+    display: flex;
+  }
