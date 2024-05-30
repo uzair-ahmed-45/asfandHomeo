@@ -12,14 +12,15 @@ export default function SignIn() {
   const [passmsg, setpassmsg] = useState(false);
   const { modal, setmodal , verifyUser , setverifyUser } = useModal()
 
-  const nav = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (verifyUser == false) {
-      nav("/")
-
+    if (!verifyUser) {
+      alert("login first");
+      navigate('/');
     }
-  }, [verifyUser])
+  }, [verifyUser, navigate]);
+
 
   // const apiUrl = process.env.REACT_APP_API_URL;
   // console.log('API URL:', apiUrl);
