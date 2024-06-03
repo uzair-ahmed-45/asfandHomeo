@@ -7,8 +7,8 @@ import Modalcontext from './Context/Modalcontext.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Modalcontext>
-      <App />
-    </Modalcontext>
+      <Modalcontext>
+        <App />
+      </Modalcontext>
   </React.StrictMode>,
 )

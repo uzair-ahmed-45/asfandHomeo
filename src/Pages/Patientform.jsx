@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from "./Navbar"
 import Inputs from "../Components/Inputs"
 import Button from '../Components/Button'
@@ -14,12 +14,12 @@ export default function Patientform() {
     const [contact, setcontact] = useState('')
     const [occupation, setoccupation] = useState('')
     const [address, setaddress] = useState('')
-    const { modal, setmodal, loader, setloader } = useModal()
+    const { modal, setmodal, loader, setloader, verifyUser } = useModal()
     const [contacterror, setcontacterror] = useState(false)
     const [patientsuccess, setpatientsuccess] = useState(false)
     const [patientexists, setpatientexists] = useState(false)
     const [allfields, setallfields] = useState(false)
-
+    const [loginmsg, setloginmsg] = useState(false)
 
     const patientobj = {
         fullname: name,
@@ -32,41 +32,39 @@ export default function Patientform() {
 
     function register(e) {
         e.preventDefault()
-        axios.post('/api/patient/register', patientobj).then((res) => {
-            if (res.data) {
-                setloader(true)
-                setmodal(true)
-                setpatientsuccess(true)
+            axios.post('/api/patient/register', patientobj).then((res) => {
+                if (res.data) {
+                    setloader(true)
+                    setmodal(true)
+                    setpatientsuccess(true)
+                    setname('')
+                    setage('')
+                    setgender('')
+                    setoccupation('')
+                    setcontact('')
+                    setaddress('')
+                }
+                console.log(res.data.data.createdPatient);
+            }).catch((err) => {
+                if (err.response.data.message == "All fields are required") {
+                    setloader(true)
+                    setmodal(true)
+                    setallfields(true)
+                } else if (err.response.data.message == "Invalid Contact number") {
+                    setcontacterror(true)
+                } else if (err.response.data.message == "Patient already registered") {
+                    setloader(true)
+                    setmodal(true)
+                    setpatientexists(true)
+                }
                 setname('')
                 setage('')
                 setgender('')
                 setoccupation('')
                 setcontact('')
                 setaddress('')
-            }
-            console.log(res.data);
-        }).catch((err) => {
-            if (err.response.data.message == "All fields are required") {
-                setloader(true)
-                setmodal(true)
-                setallfields(true)
-            } else if (err.response.data.message == "Invalid Contact number") {
-                setcontacterror(true)
-            } else if (err.response.data.message == "Patient already registered") {
-                setloader(true)
-                setmodal(true)
-                setpatientexists(true)
-            }
-            setname('')
-            setage('')
-            setgender('')
-            setoccupation('')
-            setcontact('')
-            setaddress('')
-            console.log(err.response.data.message);
-        })
-
-
+                console.log(err.response.data.message);
+            })
 
     }
 
@@ -111,7 +109,7 @@ export default function Patientform() {
                                 </div>
                             </form>
                         </div>
-                        <Popup text={`${patientexists && "patient Already exists" || patientsuccess && "Patient Registered Successfully" || allfields && "Please Fillout All fields"}`} />
+                        <Popup text={`${patientexists && "patient Already exists" || patientsuccess && "Patient Registered Successfully" || allfields && "Please Fillout All fields" || loginmsg && "Login First"}`} />
 
                     </>
             }

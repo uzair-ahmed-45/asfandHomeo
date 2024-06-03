@@ -17,17 +17,6 @@ export default function SignIn() {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!verifyUser) {
-      alert("login first");
-      navigate('/');
-    }
-  }, [verifyUser, navigate]);
-
-
-  // const apiUrl = process.env.REACT_APP_API_URL;
-  // console.log('API URL:', apiUrl);
-
   function handleSignIn() {
     const doctor = {
       name: name,
