@@ -6,53 +6,70 @@ import { useNavigate } from 'react-router-dom';
 import { useModal } from '../Hooks/useModal';
 import Popup from '../Components/Popup';
 import Spinner from '../Components/Spinner';
+import { get, post } from '../api';
+
 
 export default function SignIn() {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
-  const [passmsg, setpassmsg] = useState(false);
-  const [admin, setadmin] = useState(false);
-  const [allfields, setallfields] = useState(false);
+  const [error, seterror] = useState({})
+  const [popupMessage, setPopupMessage] = useState('');
   const { modal, setmodal, verifyUser, setverifyUser, loader, setloader } = useModal()
 
-  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+  const [hidePassword, sethidePassword] = useState(true);
 
-  function handleSignIn() {
+  function show() {
+    setShowPassword(!showPassword);
+    sethidePassword(!hidePassword)
+  }
+
+  const navigate = useNavigate();
+  const validateDoctor = (data) => {
+    const newErrors = {}
+    let isValid = true
+
+    if (!data.name) {
+      newErrors.name = "Name is required"
+    }
+    if (!data.password) {
+      newErrors.password = "Password is required"
+    }
+    if (Object.keys(newErrors).length > 0) {
+      isValid = false
+      setmodal(true)
+    }
+    seterror(newErrors)
+    return isValid
+  }
+
+  const handleSignIn = async () => {
     const doctor = {
       name: name,
       password: password,
     };
-
-    axios.post(`/api/doctor/login`, doctor)
-      .then((res) => {
-        if (res.data) {
+    if (validateDoctor(doctor)) {
+      try {
+        const response = await post('/doctor/login', doctor)
+        if (response) {
           setloader(true)
           navigate("/home");
           setverifyUser(true)
-
+          console.log(response.data);
+          setName('')
+          setPassword('')
         }
-        console.log(res.data);
-      })
-      .catch((error) => {
-        if (error.response.data.message == "Doctor not found") {
-          setloader(true)
-          setmodal(true)
-          setadmin(true)
-        }
-        else if (error.response.data.message == "Incorrect Password") {
-          setpassmsg(true)
-
-        }
-        else if (error.response.data.message == "All fields are required") {
-          setloader(true)
-          setmodal(true)
-          setallfields(true)
-        }
+      } catch (error) {
         console.log(error.response.data.message);
+        setPopupMessage(error.response.data.message)
+        setmodal(true)
+        setName('')
+        setPassword('')
+      }
+    }
 
-      });
-    setName('')
-    setPassword('')
+
+
   }
 
   return (
@@ -67,12 +84,19 @@ export default function SignIn() {
                   <div className='relative w-full'>
                     <i className="fa-solid fa-user absolute left-4 top-3 hover:text-[rgb(95,141,184)] text-gray-500 hover:transition-all hover:duration-500 hover:scale-125" style={{ fontSize: "25px" }}></i>
                     <Inputs class="w-full" type="text" placeholder="Name" changeevent={(e) => setName(e.target.value)} />
+                    {error.name && <p className="text-red-500 text-xs">{error.name}</p>}
                   </div>
                   <div className='relative w-full'>
                     <i className="fa-solid fa-lock absolute left-4 top-3 hover:text-[rgb(95,141,184)] text-gray-500 hover:transition-all hover:duration-500 hover:scale-125" style={{ fontSize: "25px" }}></i>
-                    <Inputs class="w-full" type="password" placeholder="Password" changeevent={(e) => setPassword(e.target.value)} />
+                    <Inputs class="w-full" type={showPassword ? 'text' : 'password'} placeholder="Password" changeevent={(e) => setPassword(e.target.value)} />
+                    {showPassword ? (
+                      <i className="fa-solid fa-eye-slash absolute right-[5%] top-[50%] transform -translate-y-1/2 cursor-pointer hover:text-[rgb(95,141,184)] text-gray-500 hover:transition-all hover:duration-500 hover:scale-125" onClick={show}></i>
+                    ) : (
+                      <i className="fa-solid fa-eye absolute right-[5%] top-[50%] transform -translate-y-1/2 cursor-pointer hover:text-[rgb(95,141,184)] text-gray-500 hover:transition-all hover:duration-500 hover:scale-125" onClick={show}></i>
+                    )}
+                    {error.password && <p className="text-red-500 text-xs">{error.password}</p>}
                   </div>
-                  <p className='text-red-700 font-bold float-left '>{passmsg && "Incorrect Password"}</p>
+
                   <div className='flex justify-between w-full '>
                     <h1 className='text-[rgb(22,57,90)] font-bold text-xs md:text-sm text-center cursor-pointer'>Forget Password?</h1>
                     <h1 className='text-[rgb(22,57,90)] font-bold text-xs md:text-sm text-center cursor-pointer' onClick={() => nav('/signup')}>Register a Doctor</h1>
@@ -80,7 +104,7 @@ export default function SignIn() {
                   <Button name="Sign In" click={handleSignIn} />
                 </div>
               </div>
-              <Popup text = {`${admin && "Admin not Found" || allfields && "All fields are required"}`} />
+              {popupMessage && modal && <Popup text={popupMessage} />}
 
             </div>
           </>

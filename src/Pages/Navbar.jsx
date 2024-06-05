@@ -39,7 +39,7 @@ export default function Navbar() {
                 </div>
             </div>
             {/* mobile navbar */}
-            <div className='block sm:hidden fixed bottom-[-10px] left-0 right-0 bg-[rgb(22,57,90)] w-full py-5 rounded-xl px-4 '>
+            <div className='block sm:hidden fixed bottom-[-10px] left-0 right-0 bg-[rgb(22,57,90)] w-full py-5 rounded-xl px-4 z-10'>
                 <MobNavlist />
             </div>
 

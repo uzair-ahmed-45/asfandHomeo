@@ -8,17 +8,18 @@ export default function Modalcontext({ children }) {
   const [verifyUser, setverifyUser] = useState(false)
   const [loader, setloader] = useState(false)
 
+
+
+
+  return (
+    <>
   
+      <Modalpopup.Provider value={{ modal, setmodal, verifyUser, setverifyUser, loader, setloader }}>
+        {children}
+      </Modalpopup.Provider>
 
-
-return (
-  <>
-    <Modalpopup.Provider value={{ modal, setmodal, verifyUser, setverifyUser , loader , setloader }}>
-      {children}
-    </Modalpopup.Provider>
-
-  </>
-)
+    </>
+  )
 }
 
 export { Modalpopup }
