@@ -21,19 +21,19 @@ export default function Navbar() {
                         <Navlist />
                     </div>
                     <div>
-                        <Button name="Logout"  click = {()=> navigation('/')}/>
+                        <Button name="Logout" click={() => navigation('/')} />
                     </div>
 
                 </div>
             </div>
-            <div className='block sm:hidden'>
+            <div className='block sm:hidden fixed top-0 left-0 right-0 bg-gray-200'>
                 <div className='flex justify-between px-6 py-5'>
                     <div className=''>
                         <h1 className='text-md'>HomeoPathy Case Taking</h1>
                         <p className='text-xs'>By Dr.AsfandYar</p>
                     </div>
                     <div>
-                        <i class="fa-solid fa-right-from-bracket text-[30px] text-[rgb(22,57,90)] hover:text-[rgb(95,141,184)] hover:scale-125 hover:transition-all hover:duration-300" onClick = {()=> navigation('/')}></i>
+                        <i class="fa-solid fa-right-from-bracket text-[30px] text-[rgb(22,57,90)] hover:text-[rgb(95,141,184)] hover:scale-125 hover:transition-all hover:duration-300" onClick={() => navigation('/')}></i>
                     </div>
 
                 </div>

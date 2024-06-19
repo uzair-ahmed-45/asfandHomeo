@@ -99,7 +99,7 @@ export default function SignIn() {
 
                   <div className='flex justify-between w-full '>
                     <h1 className='text-[rgb(22,57,90)] font-bold text-xs md:text-sm text-center cursor-pointer'>Forget Password?</h1>
-                    <h1 className='text-[rgb(22,57,90)] font-bold text-xs md:text-sm text-center cursor-pointer' onClick={() => nav('/signup')}>Register a Doctor</h1>
+                    <h1 className='text-[rgb(22,57,90)] font-bold text-xs md:text-sm text-center cursor-pointer' onClick={() => navigate('/Signup')}>Register a Doctor</h1>
                   </div>
                   <Button name="Sign In" click={handleSignIn} />
                 </div>

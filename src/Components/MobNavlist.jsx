@@ -25,13 +25,13 @@ export default function MobNavlist() {
                         <i class="fa-solid fa-users-viewfinder hover:text-[rgb(95,141,184)] hover:transition-all hover:duration-500 hover:scale-125" style={{ fontSize: "20px" }}></i>
                         <li className='text-xs hover:text-[rgb(95,141,184)] hover:transition-all hover:duration-500'>Patients</li>
                     </li>
-                    <li className='flex flex-col justify-center items-center gap-y-2' onClick={() => navigation('/patientform')}>
-                        <i class="fa-solid fa-user hover:text-[rgb(95,141,184)] hover:transition-all hover:duration-500 hover:scale-125" style={{ fontSize: "20px" }}></i>
-                        <li className='text-xs hover:text-[rgb(95,141,184)] hover:transition-all hover:duration-500'>New Patient</li>
-                    </li>
-                    <li className='flex flex-col justify-center items-center gap-y-2'>
+                    <li className='flex flex-col justify-center items-center gap-y-2' onClick={() => navigation("/newcase")}>
                         <i class="fa-solid fa-calendar-plus hover:text-[rgb(95,141,184)] hover:transition-all hover:duration-500 hover:scale-125" style={{ fontSize: "20px" }}></i>
                         <li className='text-xs hover:text-[rgb(95,141,184)] hover:transition-all hover:duration-500'>New Case</li>
+                    </li>
+                    <li className='flex flex-col justify-center items-center gap-y-2' onClick={() => navigation("/newcase")}>
+                        <i class="fa-solid fa-user-doctor hover:text-[rgb(95,141,184)] hover:transition-all hover:duration-500 hover:scale-125" style={{ fontSize: "20px" }}></i>
+                        <li className='text-xs hover:text-[rgb(95,141,184)] hover:transition-all hover:duration-500'>Profile</li>
                     </li>
 
                 </ul>

@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import Navbar from './Navbar';
-import Inputs from '../Components/Inputs';
-import Button from '../Components/Button';
+import Navbar from '../Navbar';
+import Inputs from '../../Components/Inputs';
+import Button from '../../Components/Button';
 import axios from 'axios';
-import { useModal } from '../Hooks/useModal';
-import Popup from '../Components/Popup';
-import Spinner from '../Components/Spinner';
-import { post } from '../api';
+import { useModal } from '../../Hooks/useModal';
+import Popup from '../../Components/Popup';
+import Spinner from '../../Components/Spinner';
+import { post } from '../../api';
+import { useStoreId } from '../../Hooks/useStoreId'
+import { useNavigate } from 'react-router-dom';
 
 export default function PatientForm() {
     const [fullname, setfullname] = useState();
@@ -16,9 +18,11 @@ export default function PatientForm() {
     const [occupation, setoccupation] = useState();
     const [address, setaddress] = useState();
     const [errors, setErrors] = useState({});
+    // const { patientId, setpatientId } = useStoreId()
     const [popupMessage, setPopupMessage] = useState('');
-    const { modal, setmodal, loader, setloader } = useModal();
+    const { modal, setmodal, loader, setloader, patientId, setpatientId } = useModal();
     const [patientsuccess, setPatientSuccess] = useState(false);
+    const nav = useNavigate()
 
     const validatePatient = (data) => {
         const newErrors = {};
@@ -66,15 +70,17 @@ export default function PatientForm() {
     };
 
     const register = async (e) => {
-        e.preventDefault();
+        // e.preventDefault();
         if (validatePatient(patientobj)) {
             try {
                 const response = await post('/patient/register', patientobj)
                 if (response.data) {
                     console.log(response.data);
-                    setmodal(true);
                     setPatientSuccess(true);
-                    setPopupMessage('Patient registered successfully');
+                    setpatientId(response.data._id);
+                    console.log(patientId);
+                    nav("/case/chiefComplaint")
+                    setmodal(true);
                     setfullname('');
                     setage('');
                     setgender('');
@@ -102,10 +108,9 @@ export default function PatientForm() {
             ) : (
                 <>
                     <Navbar />
-                    <div className="h-[100vh] ms-3 sm:h-[110vh] bg-gray-200 py-5 sm:ms-44 md:ms-48 lg:ms-80 w-[75.5vw] m-auto flex justify-between sm:justify-center flex-col sm:flex-row">
-                        <form
-                            onSubmit={register}
-                            className="px-5 py-5 mt-5 sm:mt-12 bg-white rounded-xl shadow-xl flex flex-col justify-between gap-y-3 w-[90vw] sm:w-[55vw]"
+                    <div className="h-auto ms-3 py-20  bg-gray-200 sm:py-10 sm:ms-44 md:ms-48 lg:ms-80 w-[75.5vw] m-auto flex justify-between sm:justify-center flex-col sm:flex-row">
+                        <div
+                            className="px-5 py-5 mt-5 sm:mt-12 bg-white rounded-xl shadow-xl flex flex-col justify-between gap-y-5 w-[90vw] sm:w-[55vw] "
                         >
                             <h1 className="text-xl font-bold text-[rgb(22,57,90)] text-center">Add a Patient</h1>
                             <div className="flex justify-between items-center gap-x-2 sm:gap-x-5">
@@ -207,7 +212,7 @@ export default function PatientForm() {
                             <div>
                                 <Button name="Register" class="rounded-lg hover:scale-100" click={register} />
                             </div>
-                        </form>
+                        </div>
                     </div>
                     {popupMessage && modal && <Popup text={popupMessage} />}
                 </>
