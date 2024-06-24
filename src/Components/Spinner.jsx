@@ -3,10 +3,8 @@ import { MoonLoader } from 'react-spinners';
 import "./spinner.css";
 import { useModal } from "../Hooks/useModal";
 
-
-
 export default function Spinner() {
-  const { loader , setloader } = useModal();
+  const { loader, setloader } = useModal();
   const [color, setColor] = useState("rgb(22,57,90)");
 
   useEffect(() => {
@@ -17,20 +15,22 @@ export default function Spinner() {
       }, 1000);
     }
   }, [loader, setloader]);
-
+  const override = {
+    display: "block",
+    margin: "0 auto",
+    borderColor: "red",
+  };
   return (
     <div className="spinner-container">
       {loader ? (
-        <div className="spinner-wrapper">
-          <MoonLoader
-            color={color}
-            loading={loader}
-            size={50}
-            aria-label="Loading Spinner"
-            data-testid="loader"
-     
-          />
-        </div>
+        <MoonLoader
+          color={color}
+          loading={loader}
+          cssOverride={override}
+          size={60}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
       ) : null}
     </div>
   );

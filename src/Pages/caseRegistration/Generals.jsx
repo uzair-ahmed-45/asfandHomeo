@@ -5,10 +5,13 @@ import Button from '../../Components/Button'
 import "./case.css"
 import { post, put } from "../../api"
 import { useModal } from '../../Hooks/useModal'
+import Popup from '../../Components/Popup'
+import { useNavigate } from 'react-router-dom'
 
 export default function Generals() {
-
+    const [popupMessage, setPopupMessage] = useState('');
     const { modal, setmodal, loader, setloader, complainId, setcomplainId } = useModal();
+    const nav = useNavigate()
 
     const [generalData, setgeneralData] = useState({
         thermal: [],
@@ -61,7 +64,10 @@ export default function Generals() {
         });
     };
 
-
+    const navigation = (path) => {
+        nav(path)
+        setloader(true)
+    }
 
     const next = async () => {
         const generalObject = {
@@ -87,43 +93,49 @@ export default function Generals() {
             const response = await put("/case/generals", generalObject)
             if (response) {
                 console.log(response.data);
+                setcomplainId(response.data.complain._id)
+                console.log(complainId);
+                setloader(true)
+                nav('/case/mind')
             }
         } catch (error) {
             console.log(error.response.data.message);
+            if (error.response.data.message === "Complain ID is required") {
+                setmodal(true)
+                setPopupMessage("Complain ID is required")
+            } else if (error.response.data.message === "Complain not found") {
+                setmodal(true)
+                setPopupMessage("Complain not found")
+            } else {
+                setmodal(true)
+                setPopupMessage("Something went wrong")
+            }
+
         }
     }
-
     return (
         <>
             <div className='sm:flex sm:h-auto h-auto py-20 sm:py-10 bg-gray-200'>
                 <Navbar />
                 <div className='flex flex-col gap-y-5 justify-center sm:justify-between items-center w-[90vw] sm:w-[70vw] md:w-[70vw] lg:w-[60vw] md:ms-64 sm:ms-48 lg:ms-80 ms-5 xl:ms-[450px] bg-white mt-5  sm:mt-10 py-5 rounded-xl shadow-xl px-5'>
-                    <div className='flex flex-col sm:flex-row justify-between w-full gap-y-5 sm:px-10'>
-                        <div>
-                            {/* icon */}
-                            <h1 className='text-xl font-bold text-[rgb(22,57,90)]'>Generals</h1>
+                    <div className='flex flex-col sm:flex-row justify-between items-center w-full gap-y-5 sm:px-10'>
+                        <div className='flex items-center'>
+                            <img src="/general.png" alt="" className='w-24 h-24' />
+                            <h1 className='text-3xl font-bold text-[rgb(22,57,90)]'>Generals</h1>
                         </div>
                         <div className='flex flex-col justify-end sm:items-end gap-y-2'>
                             <div className='flex gap-x-4 '>
-                                <h1>Patient ID</h1>
+                                <h1>Case No</h1>
                                 <div className='border-b-2 border-solid border-[rgb(22,57,90)] px-1'>
-                                    <h1 className='text-sm text-[rgb(22,57,90)]'>03b56af4-a57f-48cb-aa77-f7aa8aa8a70a</h1>
-                                </div>
-                            </div>
-                            <div>
-                                <div className='flex gap-x-4 '>
-                                    <h1>Case No</h1>
-                                    <div className='border-b-2 border-solid border-[rgb(22,57,90)] px-1'>
-                                        <h1 className='text-sm text-[rgb(22,57,90)]'>18620</h1>
-                                    </div>
+                                    <h1 className='text-sm text-[rgb(22,57,90)]'>18620</h1>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className='flex flex-col justify-between w-full sm:px-10 gap-y-5'>
+                    <div className='flex flex-col justify-between w-full sm:px-10 gap-y-5 mt-5'>
                         <div className='flex flex-col sm:flex-row justify-between sm:items-center '>
                             <h1>Thermal</h1>
-                            <div className='flex flex-col justify-between w-[80vw] sm:w-[40vw] border-2 border-solid border-[#16395A]'>
+                            <div className='flex flex-col justify-between w-[80vw] sm:w-[40vw] border-2 border-solid border-[#16395A] rounded sm:rounded-xl'>
                                 <div className='flex '>
                                     <div className='flex flex-col justify-center w-1/3 items-center border-r-2 border-solid border-[#16395A]'>
                                         <label htmlFor="Hot" className='border-b-2 border-solid border-[#16395A] w-full text-center sm:text-lg text-xs'>Hot</label>
@@ -142,7 +154,7 @@ export default function Generals() {
                         </div>
                         <div className='flex flex-col sm:flex-row justify-between sm:items-center '>
                             <h1>Hunger Tolerance</h1>
-                            <div className='flex flex-col justify-between w-[80vw] sm:w-[40vw] border-2 border-solid border-[#16395A]'>
+                            <div className='flex flex-col justify-between w-[80vw] sm:w-[40vw] border-2 border-solid border-[#16395A] rounded sm:rounded-xl'>
                                 <div className='flex '>
                                     <div className='flex flex-col justify-center w-1/4 items-center border-r-2 border-solid border-[#16395A]'>
                                         <label htmlFor="Good" className='border-b-2 border-solid border-[#16395A] w-full text-center sm:text-lg text-xs'>Good</label>
@@ -165,7 +177,7 @@ export default function Generals() {
                         </div>
                         <div className='flex flex-col sm:flex-row justify-between sm:items-center '>
                             <h1>Eating Speed</h1>
-                            <div className='flex flex-col justify-between w-[80vw] sm:w-[40vw] border-2 border-solid border-[#16395A]'>
+                            <div className='flex flex-col justify-between w-[80vw] sm:w-[40vw] border-2 border-solid border-[#16395A] rounded sm:rounded-xl'>
                                 <div className='flex '>
                                     <div className='flex flex-col justify-center w-1/4 items-center border-r-2 border-solid border-[#16395A]'>
                                         <label htmlFor="Slow" className='border-b-2 border-solid border-[#16395A] w-full text-center sm:text-lg text-xs'>Slow</label>
@@ -188,7 +200,7 @@ export default function Generals() {
                         </div>
                         <div className='flex flex-col sm:flex-row justify-between sm:items-center '>
                             <h1>Appetite</h1>
-                            <div className='flex flex-col justify-between w-[80vw] sm:w-[40vw] border-2 border-solid border-[#16395A]'>
+                            <div className='flex flex-col justify-between w-[80vw] sm:w-[40vw] border-2 border-solid border-[#16395A] rounded sm:rounded-xl'>
                                 <div className='flex '>
                                     <div className='flex flex-col justify-center w-1/4 items-center border-r-2 border-solid border-[#16395A]'>
                                         <label htmlFor="Good" className='border-b-2 border-solid border-[#16395A] w-full text-center  sm:text-lg text-xs'>Good</label>
@@ -211,7 +223,7 @@ export default function Generals() {
                         </div>
                         <div className='flex flex-col sm:flex-row justify-between sm:items-center '>
                             <h1>Perspiration</h1>
-                            <div className='flex flex-col justify-between w-[80vw] sm:w-[40vw] border-2 border-solid border-[#16395A]'>
+                            <div className='flex flex-col justify-between w-[80vw] sm:w-[40vw] border-2 border-solid border-[#16395A] rounded sm:rounded-xl'>
                                 <div className='flex '>
                                     <div className='flex flex-col justify-center w-1/4 items-center border-r-2 border-solid border-[#16395A]'>
                                         <label htmlFor="Offensive" className='border-b-2 border-solid border-[#16395A] w-full text-center sm:text-lg text-xs'>Offensive</label>
@@ -234,7 +246,7 @@ export default function Generals() {
                         </div>
                         <div className='flex flex-col sm:flex-row justify-between sm:items-center'>
                             <h1>Bad Habits</h1>
-                            <div className='flex flex-col justify-between w-[80vw] sm:w-[40vw] border-2 border-solid border-[#16395A]'>
+                            <div className='flex flex-col justify-between w-[80vw] sm:w-[40vw] border-2 border-solid border-[#16395A] rounded sm:rounded-xl'>
                                 <div className='flex '>
                                     <div className='flex flex-col justify-center w-1/3 items-center border-r-2 border-solid border-[#16395A]'>
                                         <label htmlFor="Smoking" className='border-b-2 border-solid border-[#16395A] w-full text-center sm:text-lg text-xs'>Smoking</label>
@@ -253,7 +265,7 @@ export default function Generals() {
                         </div>
                         <div className='flex flex-col sm:flex-row justify-between sm:items-center'>
                             <h1>Thirst</h1>
-                            <div className='flex flex-col justify-between w-[80vw] sm:w-[40vw] border-2 border-solid border-[#16395A]'>
+                            <div className='flex flex-col justify-between w-[80vw] sm:w-[40vw] border-2 border-solid border-[#16395A] rounded sm:rounded-xl'>
                                 <div className='flex '>
                                     <div className='flex flex-col justify-center w-1/4 items-center border-r-2 border-solid border-[#16395A]'>
                                         <label htmlFor="Thirsty" className='border-b-2 border-solid border-[#16395A] w-full text-center sm:text-lg text-xs'>Thirsty</label>
@@ -276,7 +288,7 @@ export default function Generals() {
                         </div>
                         <div className='flex flex-col sm:flex-row justify-between sm:items-center'>
                             <h1>Dream</h1>
-                            <div className='flex flex-col justify-between w-[80vw] sm:w-[40vw] border-2 border-solid border-[#16395A]'>
+                            <div className='flex flex-col justify-between w-[80vw] sm:w-[40vw] border-2 border-solid border-[#16395A] rounded sm:rounded-xl'>
                                 <div className='flex '>
                                     <div className='flex flex-col justify-center w-1/4 items-center border-b-2 border-r-2 border-solid border-[#16395A]'>
                                         <label htmlFor="Snakes" className='border-b-2 border-solid border-[#16395A] w-full text-center sm:text-lg text-xs'>Snakes</label>
@@ -303,7 +315,7 @@ export default function Generals() {
                         </div>
                         <div className='flex flex-col sm:flex-row justify-between sm:items-center'>
                             <h1>Urine</h1>
-                            <div className='flex flex-col justify-between w-[80vw] sm:w-[40vw] border-2 border-solid border-[#16395A]'>
+                            <div className='flex flex-col justify-between w-[80vw] sm:w-[40vw] border-2 border-solid border-[#16395A] rounded sm:rounded-xl'>
                                 <div className='flex '>
                                     <div className='flex flex-col justify-center w-1/4 items-center border-b-2 border-r-2 border-solid border-[#16395A]'>
                                         <label htmlFor="Normal" className='border-b-2 border-solid border-[#16395A] w-full text-center sm:text-lg text-xs'>Normal</label>
@@ -330,7 +342,7 @@ export default function Generals() {
                         </div>
                         <div className='flex flex-col sm:flex-row justify-between sm:items-center'>
                             <h1>Sleep</h1>
-                            <div className='flex flex-col justify-between w-[80vw] sm:w-[40vw] border-2 border-solid border-[#16395A]'>
+                            <div className='flex flex-col justify-between w-[80vw] sm:w-[40vw] border-2 border-solid border-[#16395A] rounded sm:rounded-xl'>
                                 <div className='flex '>
                                     <div className='flex flex-col justify-center w-1/4 items-center border-r-2 border-solid border-[#16395A]'>
                                         <label htmlFor="Normal" className='border-b-2 border-solid border-[#16395A] w-full text-center sm:text-lg text-xs'>Normal</label>
@@ -353,7 +365,7 @@ export default function Generals() {
                         </div>
                         <div className='flex flex-col sm:flex-row justify-between sm:items-center'>
                             <h1>Sleep Position</h1>
-                            <div className='flex flex-col justify-between w-[80vw] sm:w-[40vw] border-2 border-solid border-[#16395A]'>
+                            <div className='flex flex-col justify-between w-[80vw] sm:w-[40vw] border-2 border-solid border-[#16395A] rounded sm:rounded-xl'>
                                 <div className='flex '>
                                     <div className='flex flex-col justify-center w-1/4 items-center border-b-2 border-r-2 border-solid border-[#16395A]'>
                                         <label htmlFor="Back" className='border-b-2 border-solid border-[#16395A] w-full text-center sm:text-lg text-xs'>Back</label>
@@ -380,7 +392,7 @@ export default function Generals() {
                         </div>
                         <div className='flex flex-col sm:flex-row justify-between sm:items-center'>
                             <h1>Food Desires</h1>
-                            <div className='flex flex-col justify-between w-[80vw] sm:w-[40vw] border-2 border-solid border-[#16395A]'>
+                            <div className='flex flex-col justify-between w-[80vw] sm:w-[40vw] border-2 border-solid border-[#16395A] rounded sm:rounded-xl'>
                                 <div className='flex '>
                                     <div className='flex flex-col justify-center w-1/4 items-center border-b-2 border-r-2 border-solid border-[#16395A]'>
                                         <label htmlFor="Sweet" className='border-b-2 border-solid border-[#16395A] w-full text-center sm:text-lg text-xs'>Sweet</label>
@@ -400,13 +412,13 @@ export default function Generals() {
                                     </div>
                                 </div>
                                 <div className='flex'>
-                                    <div className='flex flex-col justify-center w-1/4 items-center border-r-2 border-solid border-[#16395A] '>
+                                    <div className='flex flex-col justify-center w-1/3 items-center border-r-2 border-solid border-[#16395A] '>
                                         <label htmlFor="Fruits" className='border-b-2 border-solid border-[#16395A] w-full text-center sm:text-lg text-xs'>Fruits</label>
                                         <Inputs type="checkbox" value="Fruits" changeevent={(e) => handleChange(e, 'foodDesires')} class="w-[19vw] sm:w-[6vw]  custom-checkbox hover:shadow-none hover:drop-shadow-none  rounded-none focus:outline-none px-2 py-0" />
                                     </div>
                                     <div className='flex flex-col justify-center items-center'>
                                         <label htmlFor="Other" className='border-b-2 border-solid border-[#16395A] w-full text-center sm:text-lg text-xs'>Other</label>
-                                        <Inputs type="text" placeholder="Type Others here" changeevent={(e) => handleChange(e, 'foodDesires')} class="w-[59.5vw] sm:w-[30vw] hover:shadow-none hover:drop-shadow-none  rounded-none focus:outline-none px-2 py-0 h-8 text-[15px]" />
+                                        <Inputs type="text" placeholder="Type Others here" changeevent={(e) => handleChange(e, 'foodDesires')} class="w-[55vw] sm:w-[30vw] hover:shadow-none hover:drop-shadow-none  rounded-none focus:outline-none px-2 py-0 h-8 text-[15px]" />
                                     </div>
                                 </div>
 
@@ -414,7 +426,7 @@ export default function Generals() {
                         </div>
                         <div className='flex flex-col sm:flex-row justify-between sm:items-center'>
                             <h1>Stool</h1>
-                            <div className='flex flex-col justify-between w-[80vw] sm:w-[40vw] border-2 border-solid border-[#16395A]'>
+                            <div className='flex flex-col justify-between w-[80vw] sm:w-[40vw] border-2 border-solid border-[#16395A] rounded sm:rounded-xl'>
                                 <div className='flex '>
                                     <div className='flex flex-col justify-center w-1/4 items-center border-b-2 border-r-2 border-solid border-[#16395A]'>
                                         <label htmlFor="Loose" className='border-b-2 border-solid border-[#16395A] w-full text-center sm:text-lg text-xs'>Loose</label>
@@ -456,7 +468,7 @@ export default function Generals() {
                         </div>
                         <div className='flex flex-col sm:flex-row justify-between sm:items-center'>
                             <h1>Sensitivity</h1>
-                            <div className='flex flex-col justify-between w-[80vw] sm:w-[40vw] border-2 border-solid border-[#16395A]'>
+                            <div className='flex flex-col justify-between w-[80vw] sm:w-[40vw] border-2 border-solid border-[#16395A] rounded sm:rounded-xl'>
                                 <div className='flex '>
                                     <div className='flex flex-col justify-center w-1/4 items-center border-b-2 border-r-2 border-solid border-[#16395A]'>
                                         <label htmlFor="Sunlight" className='border-b-2 border-solid border-[#16395A] w-full text-center sm:text-lg text-xs'>Sunlight</label>
@@ -492,13 +504,15 @@ export default function Generals() {
 
                             </div>
                         </div>
-                        <div>
-                            <Button name="Next" class="rounded-lg hover:transform-none" click={next} />
+                        <div className='flex justify-center gap-x-5'>
+                            <Button name="Skip" class="rounded-lg hover:transform-none mt-5 w-full" click={() => navigation('/case/mind')} />
+                            <Button name="Next" class="rounded-lg hover:transform-none mt-5 w-full" click={next} />
                         </div>
 
                     </div>
                 </div>
             </div>
+            {modal && popupMessage && <Popup text={popupMessage} />}
         </>
     )
 }

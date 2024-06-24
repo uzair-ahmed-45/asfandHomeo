@@ -109,11 +109,13 @@ export default function PatientForm() {
                 <>
                     <Navbar />
                     <div className="h-auto ms-3 py-20  bg-gray-200 sm:py-10 sm:ms-44 md:ms-48 lg:ms-80 w-[75.5vw] m-auto flex justify-between sm:justify-center flex-col sm:flex-row">
-                        <div
-                            className="px-5 py-5 mt-5 sm:mt-12 bg-white rounded-xl shadow-xl flex flex-col justify-between gap-y-5 w-[90vw] sm:w-[55vw] "
-                        >
-                            <h1 className="text-xl font-bold text-[rgb(22,57,90)] text-center">Add a Patient</h1>
+                        <div className="px-5 py-5 mt-5 sm:mt-12 bg-white rounded-xl shadow-xl flex flex-col justify-center gap-y-5 w-[90vw] sm:w-[55vw] ">
+                            <div className='flex items-center m-auto'>
+                                <img src="/patient.png" alt="" className='w-16 h-24' />
+                                <h1 className='text-3xl font-bold text-[rgb(22,57,90)]'>Register Patient</h1>
+                            </div>
                             <div className="flex justify-between items-center gap-x-2 sm:gap-x-5">
+
                                 <label htmlFor="fullname" className="sm:text-sm md:text-lg text-xs">
                                     Full Name
                                 </label>

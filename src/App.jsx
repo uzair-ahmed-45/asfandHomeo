@@ -12,6 +12,13 @@ import PatientList from './Pages/PatientList';
 import ChiefComplaint from './Pages/caseRegistration/ChiefComplaint';
 import NewCase from './Pages/NewCase';
 import Generals from './Pages/caseRegistration/Generals';
+import Mind from './Pages/caseRegistration/Mind';
+import Nature from './Pages/caseRegistration/Nature';
+import Pasthistory from './Pages/caseRegistration/Pasthistory';
+import GyaneHistory from './Pages/caseRegistration/GyaneHistory';
+import Childhood from './Pages/caseRegistration/Childhood';
+import Behavior from './Pages/caseRegistration/Behavior';
+
 
 function App() {
   const { modal, setmodal, verifyUser, setverifyUser, loader, setloader } = useModal()
@@ -27,12 +34,18 @@ function App() {
             <Routes>
               <Route path="/" element={<SignIn />} />
               <Route path="/home" element={<Home />} />
-              <Route path="/Signup" element={<Signup />} />
+              {/* <Route path="/Signup" element={<Signup />} /> */}
               <Route path="/case/patientform" element={<Patientform />} />
               <Route path="/patients" element={<PatientList />} />
               <Route path="/newcase" element={<NewCase />} />
               <Route path="/case/chiefComplaint" element={<ChiefComplaint />} />
               <Route path="/case/generals" element={<Generals />} />
+              <Route path="/case/mind" element={<Mind />} />
+              <Route path="/case/nature" element={<Nature />} />
+              <Route path="/case/pastHistory" element={<Pasthistory />} />
+              <Route path="/case/gyaneHistory" element={<GyaneHistory />} />
+              <Route path="/case/childHoodHistory" element={<Childhood />} />
+              <Route path="/case/behavior" element={<Behavior />} />
             </Routes>
           </div>
         </Router>

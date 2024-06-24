@@ -14,7 +14,7 @@ export default function SignIn() {
   const [password, setPassword] = useState('');
   const [error, seterror] = useState({})
   const [popupMessage, setPopupMessage] = useState('');
-  const { modal, setmodal, verifyUser, setverifyUser, loader, setloader } = useModal()
+  const { modal, setmodal, verifyUser, setverifyUser, loader, setloader, loggedInDoctor, setLoggedInDoctor } = useModal()
 
   const [showPassword, setShowPassword] = useState(false);
   const [hidePassword, sethidePassword] = useState(true);
@@ -55,7 +55,9 @@ export default function SignIn() {
           setloader(true)
           navigate("/home");
           setverifyUser(true)
-          console.log(response.data);
+          const doctor = response.data.adminFound
+          setLoggedInDoctor(doctor)
+          console.log(loggedInDoctor);
           setName('')
           setPassword('')
         }
@@ -97,9 +99,8 @@ export default function SignIn() {
                     {error.password && <p className="text-red-500 text-xs">{error.password}</p>}
                   </div>
 
-                  <div className='flex justify-between w-full '>
+                  <div className='flex justify-center w-full '>
                     <h1 className='text-[rgb(22,57,90)] font-bold text-xs md:text-sm text-center cursor-pointer'>Forget Password?</h1>
-                    <h1 className='text-[rgb(22,57,90)] font-bold text-xs md:text-sm text-center cursor-pointer' onClick={() => navigate('/Signup')}>Register a Doctor</h1>
                   </div>
                   <Button name="Sign In" click={handleSignIn} />
                 </div>

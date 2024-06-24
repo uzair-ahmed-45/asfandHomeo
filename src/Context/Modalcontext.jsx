@@ -9,6 +9,7 @@ export default function Modalcontext({ children }) {
   const [loader, setloader] = useState(false)
   const [patientId, setpatientId] = useState("")
   const [complainId, setcomplainId] = useState("")
+  const [loggedInDoctor, setLoggedInDoctor] = useState({})
 
 
 
@@ -16,7 +17,7 @@ export default function Modalcontext({ children }) {
   return (
     <>
 
-      <Modalpopup.Provider value={{ modal, setmodal, verifyUser, setverifyUser, loader, setloader, patientId, setpatientId, complainId, setcomplainId }}>
+      <Modalpopup.Provider value={{ modal, setmodal, verifyUser, setverifyUser, loader, setloader, patientId, setpatientId, complainId, setcomplainId, loggedInDoctor, setLoggedInDoctor }}>
         {children}
       </Modalpopup.Provider>
 
