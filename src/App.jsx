@@ -18,6 +18,7 @@ import Pasthistory from './Pages/caseRegistration/Pasthistory';
 import GyaneHistory from './Pages/caseRegistration/GyaneHistory';
 import Childhood from './Pages/caseRegistration/Childhood';
 import Behavior from './Pages/caseRegistration/Behavior';
+import LabTest from './Pages/caseRegistration/LabTest';
 
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
               <Route path="/case/gyaneHistory" element={<GyaneHistory />} />
               <Route path="/case/childHoodHistory" element={<Childhood />} />
               <Route path="/case/behavior" element={<Behavior />} />
+              <Route path="/case/labTests" element={<LabTest />} />
             </Routes>
           </div>
         </Router>

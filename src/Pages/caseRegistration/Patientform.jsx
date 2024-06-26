@@ -7,7 +7,6 @@ import { useModal } from '../../Hooks/useModal';
 import Popup from '../../Components/Popup';
 import Spinner from '../../Components/Spinner';
 import { post } from '../../api';
-import { useStoreId } from '../../Hooks/useStoreId'
 import { useNavigate } from 'react-router-dom';
 
 export default function PatientForm() {
@@ -18,7 +17,6 @@ export default function PatientForm() {
     const [occupation, setoccupation] = useState();
     const [address, setaddress] = useState();
     const [errors, setErrors] = useState({});
-    // const { patientId, setpatientId } = useStoreId()
     const [popupMessage, setPopupMessage] = useState('');
     const { modal, setmodal, loader, setloader, patientId, setpatientId } = useModal();
     const [patientsuccess, setPatientSuccess] = useState(false);

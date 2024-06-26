@@ -59,7 +59,7 @@ export default function Behavior() {
                 setcomplainId(response.data.complain._id)
                 console.log(complainId);
                 setloader(true)
-                // navigation('/case/pastHistory')
+                navigation('/case/labTests')
             }
         } catch (error) {
             console.log(error.response.data.message);

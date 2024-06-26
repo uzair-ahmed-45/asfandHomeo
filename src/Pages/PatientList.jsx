@@ -7,8 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import { useModal } from '../Hooks/useModal';
 import { get, post, put } from '../api';
 import Spinner from '../Components/Spinner';
-import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react'
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -22,6 +20,12 @@ export default function PatientList() {
     const nav = useNavigate()
     const [totalCases, setTotalCases] = useState({})
     const [filteredPatient, setFilteredPatient] = useState([])
+    const [isOpen, setIsOpen] = useState(null);
+
+    const toggleDropdown = (index) => {
+        setIsOpen(prevIndex => (prevIndex === index ? null : index));
+    };
+
 
     useEffect(() => {
         const fetchPatients = async () => {
@@ -98,7 +102,7 @@ export default function PatientList() {
                     <Navbar />
                 </div>
                 <div className=''>
-                    <div className='md:w-[70vw] w-[95vw] ms-[10px] sm:w-[70vw] xl:w-[60vw] sm:ms-[180px] md:ms-[220px] lg:ms-[330px] flex flex-col gap-y-5 h-auto py-32 sm:py-36 sm:mt-0 bg-gray-200'>
+                    <div className='md:w-[70vw] w-[95vw] ms-[10px] sm:w-[70vw] xl:w-[60vw] sm:ms-[180px] md:ms-[220px] lg:ms-[330px] flex flex-col gap-y-5 h-auto py-32 sm:py-32 sm:mt-0 bg-gray-200'>
                         <div className='mt-[-32px]'>
                             <h1 className='text-2xl font-bold text-[rgb(22,57,90)] mt-2 text-center'>My Patients</h1>
                         </div>
@@ -127,53 +131,20 @@ export default function PatientList() {
                                             <h1 className='md:block hidden absolute md:left-52 lg:left-[300px] text-sm xl:text-md'>{items.gender}</h1>
                                             <h1 className=' absolute md:left-72 left-28 sm:left-44 lg:left-[450px] text-sm xl:text-md'>{`${items.contact}`}</h1>
                                             <h1 className='absolute md:left-[440px] left-64 sm:left-80 lg:left-[650px] md:text-sm xl:text-md text-sm'>{totalCases[items._id] || 0}</h1>
-                                            <Menu as="div" className="relative inline-block text-left">
-                                                <div>
-                                                    <MenuButton className=" w-full justify-center gap-x-1.5 rounded-md bg-white px-2 sm:px-3 py-1 sm:py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                                                        <ChevronDownIcon className=" sm:h-5 h-3 w-3 sm:w-5 text-gray-400" aria-hidden="true" />
-                                                    </MenuButton>
-                                                </div>
+                                            <div className='relative'>
+                                                <i class="fa-solid fa-circle-chevron-down text-[rgb(22,57,90)] hover:text-[rgb(95,141,184)] cursor-pointer hover:scale-110 hover:transition-all hover:duration-300 text-[18px]" onClick={() => toggleDropdown(index)}></i>
+                                                {
+                                                    isOpen === index && <div className='absolute w-48 bg-white  rounded z-10 right-4'>
+                                                        <ul className='flex flex-col  '>
+                                                            <li className='hover:bg-gray-200 cursor-pointer px-4 py-2 text-md text-[rgba(252,165,23,255)]' onClick={() => newcase(index)}>Add a new Case</li>
+                                                            <li className='hover:bg-gray-200 cursor-pointer px-4 py-2 text-md text-red-600' onClick={() => deletePatient(index)}>Delete a Patient</li>
+                                                        </ul>
 
-                                                <Transition
-                                                    enter="transition ease-out duration-100"
-                                                    enterFrom="transform opacity-0 scale-95"
-                                                    enterTo="transform opacity-100 scale-100"
-                                                    leave="transition ease-in duration-75"
-                                                    leaveFrom="transform opacity-100 scale-100"
-                                                    leaveTo="transform opacity-0 scale-95"
-                                                >
-                                                    <MenuItems className="absolute right-0 z-10 mt-2 w-44 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                                        <div className="py-1">
-                                                            <MenuItem>
-                                                                {({ focus }) => (
-                                                                    <a
-                                                                        href="#"
-                                                                        className={classNames(
-                                                                            focus ? 'bg-gray-100 text-[rgba(252,165,23,255)]' : 'text-[rgba(252,165,23,255)]',
-                                                                            'block px-4 py-2 text-sm',
-                                                                        )}
-                                                                        onClick={() => newcase(index)}>
-                                                                        Add a new Case
-                                                                    </a>
-                                                                )}
-                                                            </MenuItem>
-                                                            <MenuItem>
-                                                                {({ focus }) => (
-                                                                    <a
-                                                                        href="#"
-                                                                        className={classNames(
-                                                                            focus ? 'bg-gray-100 text-red-700' : 'text-red-700',
-                                                                            'block px-4 py-2 text-sm',
-                                                                        )}
-                                                                        onClick={() => deletePatient(index)} >
-                                                                        Delete Patient
-                                                                    </a>
-                                                                )}
-                                                            </MenuItem>
-                                                        </div>
-                                                    </MenuItems>
-                                                </Transition>
-                                            </Menu>
+                                                    </div>
+                                                }
+
+                                            </div>
+
                                         </div>
                                     ))
                                 }

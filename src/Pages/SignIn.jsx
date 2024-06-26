@@ -7,7 +7,7 @@ import { useModal } from '../Hooks/useModal';
 import Popup from '../Components/Popup';
 import Spinner from '../Components/Spinner';
 import { get, post } from '../api';
-
+import { useCookies } from 'react-cookie'
 
 export default function SignIn() {
   const [name, setName] = useState('');
@@ -18,6 +18,8 @@ export default function SignIn() {
 
   const [showPassword, setShowPassword] = useState(false);
   const [hidePassword, sethidePassword] = useState(true);
+  const [cookies, setCookie] = useCookies(['access_token', 'refresh_token'])
+
 
   function show() {
     setShowPassword(!showPassword);
@@ -55,7 +57,12 @@ export default function SignIn() {
           setloader(true)
           navigate("/home");
           setverifyUser(true)
-          const doctor = response.data.adminFound
+          let expires = new Date()
+          expires.setTime(expires.getTime() + (response.data.expires_in * 1000))
+          setCookie('access_token', response.data.access_token, { path: '/home', expires })
+          setCookie('refresh_token', response.data.refresh_token, { path: '/home', expires })
+
+          const doctor = response.data
           setLoggedInDoctor(doctor)
           console.log(loggedInDoctor);
           setName('')
