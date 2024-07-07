@@ -65,7 +65,7 @@ export default function ChiefComplaint() {
             patientid: patientId,
             StartDate: formData.whenStarted,
             Location: formData.locationAndSide,
-            Sensation: formData.sensationAndDuration,
+            Sensation: formData.sensation,
             Duration: formData.duration,
             Modalities: formData.modalities,
             Agravation: formData.Agravation,

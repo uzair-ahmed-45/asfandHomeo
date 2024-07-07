@@ -78,7 +78,7 @@ export default function Childhood() {
 
     return (
         <>
-            <div className='sm:flex sm:h-screen h-auto py-20 md:py-12 sm:py-10  xl:py-24 bg-gray-200'>
+            <div className='sm:flex h-screen py-40 sm:py-44 xl:py-24 bg-gray-200'>
                 <Navbar />
                 <div className='flex flex-col gap-y-5 justify-center sm:justify-between items-center w-[90vw] sm:w-[70vw] md:w-[70vw] lg:w-[60vw] md:ms-64 sm:ms-48 lg:ms-80 ms-5 xl:ms-[450px] bg-white mt-5  sm:mt-10 py-5 rounded-xl shadow-xl px-5'>
                     <div className='flex flex-col sm:flex-row justify-between items-center w-full gap-y-5 sm:px-10'>

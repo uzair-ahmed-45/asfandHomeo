@@ -59,6 +59,7 @@ export default function Mind() {
             familyRelation: mindData.familyRelation.concat(mindData.familyRelationOther ? [mindData.familyRelationOther] : []).join(', '),
             friendsRelation: mindData.friendsRelation.concat(mindData.friendsRelationOther ? [mindData.friendsRelationOther] : []).join(', '),
             gathering: mindData.gathering.concat(mindData.gatheringOther ? [mindData.gatheringOther] : []).join(', '),
+            memory: mindData.memory.concat(mindData.memoryOther ? [mindData.memoryOther] : []).join(', '),
             willPower: mindData.willPower.concat(mindData.willPowerOther ? [mindData.willPowerOther] : []).join(', '),
             personality: mindData.personality.concat(mindData.personalityOther ? [mindData.personalityOther] : []).join(', '),
         };
@@ -176,7 +177,7 @@ export default function Mind() {
                             </div>
                         </div>
                         <div className='flex flex-col sm:flex-row justify-between sm:items-center '>
-                            <h1>Gathering</h1>
+                            <h1>Mind</h1>
                             <div className='flex flex-col justify-between w-[80vw] sm:w-[40vw] border-2 border-solid border-[#16395A] rounded sm:rounded-xl'>
                                 <div className='flex '>
                                     <div className='flex flex-col justify-center w-1/4 items-center border-r-2 border-solid border-[#16395A]'>

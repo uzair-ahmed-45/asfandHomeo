@@ -8,41 +8,35 @@ import { useNavigate } from 'react-router-dom';
 import Spinner from '../../Components/Spinner';
 import Popup from '../../Components/Popup';
 
-export default function LabTest() {
-    const [labTestData, setLabTestData] = useState({
-        labtests: Array(10).fill(''),
-    });
+export default function Diagnosed() {
+    const [dignosisData, setdignosisData] = useState('');
     const [popupMessage, setPopupMessage] = useState('');
-    const { modal, setmodal, loader, setloader, complainId, setcomplainId } = useModal();
+    const { modal, setmodal, loader, setloader, patientId, setpatientId, complainId, setcomplainId, complain, setcomplain } = useModal();
     const nav = useNavigate();
     const navigation = (path) => {
         nav(path);
         setloader(true);
     };
 
-    const handleInputChange = (index, value) => {
-        const newLabtests = [...labTestData.labtests];
-        newLabtests[index] = value;
-        setLabTestData({ labtests: newLabtests });
-    };
-
     const next = async () => {
-        const labTestObj = {
+        const diagnosedObj = {
             complainId,
-            tests: labTestData.labtests.join(', '),
+            diagnosed: dignosisData
         };
         try {
-            const response = await put('/case/labTests', labTestObj);
+            const response = await put('/case/diagnosed', diagnosedObj);
             console.log(response);
             if (response) {
                 console.log(response.data);
+                setcomplain(response.data)
+                console.log(complain);
                 setcomplainId(response.data.complain._id);
                 console.log(complainId);
                 setloader(true);
-                nav('/case/diagnosed')
+                nav('/case/remedies')
             }
         } catch (error) {
-            console.log(error.response.data.message);
+            console.log(error);
             if (error.response.data.message === 'Complain ID is required') {
                 setmodal(true);
                 setPopupMessage('Complain ID is required');
@@ -60,13 +54,13 @@ export default function LabTest() {
         <>
             {loader ? <Spinner /> :
                 <>
-                    <div className='sm:flex h-auto py-20 sm:py-5 bg-gray-200'>
+                    <div className='sm:flex h-auto py-20 sm:py-24 bg-gray-200'>
                         <Navbar />
                         <div className='flex flex-col gap-y-5 justify-center sm:justify-between items-center w-[90vw] sm:w-[70vw] md:w-[70vw] lg:w-[60vw] md:ms-64 sm:ms-48 lg:ms-80 ms-5 xl:ms-[450px] bg-white mt-10 sm:mt-10 py-5 rounded-xl shadow-xl px-5'>
                             <div className='flex flex-col sm:flex-row justify-between items-center w-full gap-y-5 sm:px-10'>
                                 <div className='flex items-center'>
                                     <img src="/history.png" alt="" className='w-24 h-24' />
-                                    <h1 className='text-3xl font-bold text-[rgb(22,57,90)]'>Lab Tests</h1>
+                                    <h1 className='text-3xl font-bold text-[rgb(22,57,90)]'>Diagnosed</h1>
                                 </div>
                                 <div className='flex flex-col justify-end sm:items-end gap-y-2'>
                                     <div className='flex gap-x-4'>
@@ -77,25 +71,14 @@ export default function LabTest() {
                                     </div>
                                 </div>
                             </div>
-                            <form action='' onSubmit={next} className='flex flex-col sm:flex-row flex-wrap justify-between w-full sm:px-10 gap-y-5'>
-                                {labTestData.labtests.map((test, index) => (
-                                    <div key={index} className='flex flex-col sm:flex-row gap-x-3 sm:items-center'>
-                                        <label htmlFor="" className=''>{index + 1}</label>
-                                        <Inputs
-                                            type="text"
-                                            name={`labtests${index}`}
-                                            value={test}
-                                            changeevent={(e) => handleInputChange(index, e.target.value)}
-                                            class="border-b-2 border-solid border-[rgb(22,57,90)] hover:drop-shadow-none hover:shadow-none rounded-none focus:outline-none px-2 py-0 w-[80vw] sm:w-[20vw]"
-                                        />
-                                    </div>
-                                ))}
-                                <div className='flex justify-center gap-x-5 m-auto'>
-                                    <Button name="Skip" class="rounded-lg hover:transform-none mt-5 w-full" click={() => navigation('/case/diagnosed')} />
-                                    <Button name="Next" class="rounded-lg hover:transform-none mt-5 w-full" click={next} />
-                                </div>
-                            </form>
-
+                            <div className='flex flex-col justify-between w-full sm:px-10 gap-y-5'>
+                                <textarea name="" id="" cols={50} rows={5} className='rounded-xl border-2 border-solid border-[rgb(22,57,90)] focus:border-[rgb(22,57,90)] px-5 py-5' value={dignosisData} onChange={(e) => setdignosisData(e.target.value
+                                )}></textarea>
+                            </div>
+                            <div className='flex justify-center gap-x-5'>
+                                <Button name="Skip" class="rounded-lg hover:transform-none mt-5 w-full" click={() => navigation('/case/remedies')} />
+                                <Button name="Next" class="rounded-lg hover:transform-none mt-5 w-full" click={next} />
+                            </div>
                         </div>
                     </div>
                     {modal && popupMessage && <Popup text={popupMessage} />}

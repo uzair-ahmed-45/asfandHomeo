@@ -273,7 +273,7 @@ export default function Generals() {
                                     </div>
                                     <div className='flex flex-col justify-center w-1/4 items-center  border-r-2 border-solid border-[#16395A]'>
                                         <label htmlFor="Thirstless" className='border-b-2 border-solid border-[#16395A] w-full text-center sm:text-lg text-xs'>Thirstless</label>
-                                        <Inputs type="checkbox" value="Thirstless" changeevchangeevent={(e) => handleChange(e, 'thirst')} class="w-[15vw] sm:w-[6vw] custom-checkbox hover:shadow-none hover:drop-shadow-none  rounded-none focus:outline-none px-2 py-0" />
+                                        <Inputs type="checkbox" value="Thirstless" changeevent={(e) => handleChange(e, 'thirst')} class="w-[15vw] sm:w-[6vw] custom-checkbox hover:shadow-none hover:drop-shadow-none  rounded-none focus:outline-none px-2 py-0" />
                                     </div>
                                     <div className='flex flex-col justify-center w-1/4 items-center border-r-2 border-solid border-[#16395A]'>
                                         <label htmlFor="Normal" className='border-b-2 border-solid border-[#16395A] w-full text-center sm:text-lg text-xs'>Normal</label>
@@ -400,8 +400,8 @@ export default function Generals() {
                                     </div>
                                     <div className='flex flex-col justify-center w-1/4 items-center border-b-2  border-r-2 border-solid border-[#16395A]'>
                                         <label htmlFor="Salt" className='border-b-2 border-solid border-[#16395A] w-full text-center sm:text-lg text-xs'>Salt</label>
-                                        <Inputs type="checkbox" value="Salt" cchangeevent={(e) => handleChange(e, 'foodDesires')} class="w-[15vw] sm:w-[6vw] custom-checkbox hover:shadow-none hover:drop-shadow-none  rounded-none focus:outline-none px-2 py-0" />
-                                    </div>
+                                        <Inputs type="checkbox" value="Salt" changeevent={(e) => handleChange(e, 'foodDesires')} class="w-[15vw] sm:w-[6vw] custom-checkbox hover:shadow-none hover:drop-shadow-none  rounded-none focus:outline-none px-2 py-0" />
+                                    </div> 
                                     <div className='flex flex-col justify-center w-1/4 items-center border-b-2 border-r-2 border-solid border-[#16395A]'>
                                         <label htmlFor="Chocolate" className='border-b-2 border-solid border-[#16395A] w-full text-center sm:text-lg text-xs'>Chocolate</label>
                                         <Inputs type="checkbox" value="Chocolate" changeevent={(e) => handleChange(e, 'foodDesires')} class="w-[19vw] sm:w-[6vw]  custom-checkbox hover:shadow-none hover:drop-shadow-none  rounded-none focus:outline-none px-2 py-0" />

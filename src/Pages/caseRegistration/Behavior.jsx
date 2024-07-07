@@ -78,13 +78,13 @@ export default function Behavior() {
 
     return (
         <>
-            <div className='sm:flex sm:h-screen h-auto py-20 md:py-24 sm:py-20 xl:py-32 bg-gray-200'>
+            <div className='sm:flex h-screen py-40 md:py-24 sm:py-20 xl:py-28 bg-gray-200'>
                 <Navbar />
                 <div className='flex flex-col gap-y-5 justify-center sm:justify-between items-center w-[90vw] sm:w-[70vw] md:w-[70vw] lg:w-[60vw] md:ms-64 sm:ms-48 lg:ms-80 ms-5 xl:ms-[450px] bg-white mt-5  sm:mt-10 py-5 rounded-xl shadow-xl px-5'>
                     <div className='flex flex-col sm:flex-row justify-between items-center w-full gap-y-5 sm:px-10'>
                         <div className='flex items-center sm:gap-x-0 gap-x-3'>
                             {/* <img src="/childhood.png" alt="" className='w-24 h-24' /> */}
-                            <h1 className='text-lg sm:text-xl md:text-3xl font-bold text-[rgb(22,57,90)]'>Behavior</h1>
+                            <h1 className='text-center text-lg sm:text-xl md:text-3xl font-bold text-[rgb(22,57,90)]'>Behavior</h1>
                         </div>
                         <div className='flex flex-col justify-end sm:items-end '>
                             <div className='flex gap-x-4 '>
@@ -123,7 +123,7 @@ export default function Behavior() {
 
                         </div>
                         <div className='flex justify-center gap-x-5'>
-                            <Button name="Skip" class="rounded-lg hover:transform-none mt-5 w-full" click={() => navigation('')} />
+                            <Button name="Skip" class="rounded-lg hover:transform-none mt-5 w-full" click={() => navigation('/case/labTests')} />
                             <Button name="Next" class="rounded-lg hover:transform-none mt-5 w-full" click={next} />
                         </div>
 

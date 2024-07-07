@@ -10,6 +10,7 @@ export default function Inputs(props) {
   return (
     <div>
       <input
+        required
         type={type}
         className={inputClassName}
         placeholder={placeholder}

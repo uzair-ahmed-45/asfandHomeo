@@ -19,6 +19,8 @@ import GyaneHistory from './Pages/caseRegistration/GyaneHistory';
 import Childhood from './Pages/caseRegistration/Childhood';
 import Behavior from './Pages/caseRegistration/Behavior';
 import LabTest from './Pages/caseRegistration/LabTest';
+import Diagnosed from './Pages/caseRegistration/Diagnosed';
+import Remedies from './Pages/caseRegistration/Remedies';
 
 
 function App() {
@@ -48,6 +50,8 @@ function App() {
               <Route path="/case/childHoodHistory" element={<Childhood />} />
               <Route path="/case/behavior" element={<Behavior />} />
               <Route path="/case/labTests" element={<LabTest />} />
+              <Route path="/case/diagnosed" element={<Diagnosed />} />
+              <Route path="/case/remedies" element={<Remedies />} />
             </Routes>
           </div>
         </Router>
