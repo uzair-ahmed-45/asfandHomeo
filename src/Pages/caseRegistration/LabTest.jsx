@@ -66,7 +66,7 @@ export default function LabTest() {
                         <Navbar />
                         <div className='flex flex-col gap-y-5 justify-center sm:justify-between items-center w-[90vw] sm:w-[70vw] md:w-[70vw] lg:w-[60vw] md:ms-64 sm:ms-48 lg:ms-80 ms-5 xl:ms-[450px] bg-white mt-10 sm:mt-10 py-5 rounded-xl shadow-xl px-5'>
                             <div className='flex items-center'>
-                                <img src="/history.png" alt="" className='w-24 h-24' />
+                                <img src="/labTests.png" alt="" className='w-20 h-24' />
                                 <h1 className='text-3xl font-bold text-[rgb(22,57,90)]'>Lab Tests</h1>
                             </div>
                             <form action='' onSubmit={next} className='flex flex-col sm:flex-row flex-wrap justify-between w-full sm:px-10 gap-y-5'>

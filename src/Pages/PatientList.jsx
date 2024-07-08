@@ -14,7 +14,7 @@ function classNames(...classes) {
 
 export default function PatientList() {
     const [patients, setPatients] = useState([]);
-    const { loader, setloader, modal, setmodal, patientId, setpatientId, caseNo, setcaseNo } = useModal()
+    const { loader, setloader, modal, setmodal, patientId, setpatientId, caseNo, setcaseNo, patientidForCase, setpatientidForCase, patientCases, setpatientCases } = useModal()
     const [searchPatient, setSearchPatient] = useState('')
     const [popupMessage, setPopupMessage] = useState("")
     const nav = useNavigate()
@@ -67,18 +67,30 @@ export default function PatientList() {
     }, [searchPatient, patients])
 
     const newcase = async (index) => {
-        const patientid = patients[index]._id
+        let patientid;
+        if (filteredPatient.length > 0) {
+            patientid = filteredPatient[index]._id
+        } else {
+            patientid = patients[index]._id
+        }
         setpatientId(patientid)
-        // try {
-        //     const res = await get('/case/getCaseNo')
-        //     const increament = res.data.caseNo + 1
-        //     setcaseNo(increament)
-        //     console.log(increament);
-        // } catch (error) {
-        //     console.log(error.response.data.message);
-        // }
         nav('/case/chiefComplaint')
         console.log(patientId);
+    }
+    const navtoCases = async (index) => {
+        let patientid;
+        if (filteredPatient.length > 0) {
+            patientid = filteredPatient[index]._id
+        } else {
+            patientid = patients[index]._id
+        }
+        console.log(patientid);
+        const response = await post('/case/patientCases', { patientid: patientid })
+        console.log(response.data);
+        setpatientCases(response.data)
+        console.log(patientCases);
+        nav('/patient/Cases')
+        setloader(true)
     }
 
     const deletePatient = async (index) => {
@@ -139,7 +151,7 @@ export default function PatientList() {
                                             <h1 className='absolute md:left-36 hidden md:block lg:left-48 text-sm xl:text-md'>{items.age}</h1>
                                             <h1 className='md:block hidden absolute md:left-52 lg:left-[300px] text-sm xl:text-md'>{items.gender}</h1>
                                             <h1 className=' absolute md:left-72 left-28 sm:left-44 lg:left-[450px] text-sm xl:text-md'>{`${items.contact}`}</h1>
-                                            <h1 className='absolute md:left-[440px] left-64 sm:left-80 lg:left-[650px] md:text-sm xl:text-md text-sm'>{totalCases[items._id] || 0}</h1>
+                                            <button className='absolute md:left-[440px] left-64 sm:left-80 lg:left-[650px] md:text-sm xl:text-md text-sm' onClick={() => navtoCases(index)}>{totalCases[items._id] || 0}</button>
                                             <div className='relative'>
                                                 <i class="fa-solid fa-circle-chevron-down text-[rgb(22,57,90)] hover:text-[rgb(95,141,184)] cursor-pointer hover:scale-110 hover:transition-all hover:duration-300 text-[18px]" onClick={() => toggleDropdown(index)}></i>
                                                 {

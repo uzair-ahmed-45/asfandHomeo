@@ -55,7 +55,7 @@ export default function CaseReport() {
                         <div className='flex flex-col gap-y-5 justify-center sm:justify-between items-center w-[90vw] sm:w-[70vw] md:w-[70vw] lg:w-[60vw] md:ms-64 sm:ms-48 lg:ms-80 ms-5 xl:ms-[450px] bg-white mt-10 sm:mt-10 py-5 rounded-xl shadow-xl px-5' ref={pdfref}>
                             <div className='flex flex-col sm:flex-row justify-between items-center w-full gap-y-5 sm:px-10'>
                                 <div className='flex items-center'>
-                                    <img src="/history.png" alt="" className='w-24 h-24' />
+                                    <img src="/caseReport.png" alt="" className='w-20 h-24' />
                                     <h1 className='text-3xl font-bold text-[rgb(22,57,90)]'>Case Report</h1>
                                 </div>
                                 <div className='flex flex-col justify-end sm:items-end gap-y-2'>
@@ -386,7 +386,7 @@ export default function CaseReport() {
                                 </>
                                     : null
                                 }
-                                {complain?.complain?.childhoodHistory ? <> q
+                                {complain?.complain?.childhoodHistory ? <> 
                                     <h1 className='text-xl font-bold text-[rgb(22,57,90)] sm:px-10'>ChildHood History</h1>
                                     <div className='grid  justify-between grid-cols-1 sm:text-base text-xs grid-rows-1 sm:justify-center sm:w-full w-[80vw] sm:px-10  gap-5'>
                                         {
