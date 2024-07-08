@@ -21,6 +21,7 @@ import Behavior from './Pages/caseRegistration/Behavior';
 import LabTest from './Pages/caseRegistration/LabTest';
 import Diagnosed from './Pages/caseRegistration/Diagnosed';
 import Remedies from './Pages/caseRegistration/Remedies';
+import CaseReport from './Pages/caseRegistration/CaseReport';
 
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
               <Route path="/case/labTests" element={<LabTest />} />
               <Route path="/case/diagnosed" element={<Diagnosed />} />
               <Route path="/case/remedies" element={<Remedies />} />
+              <Route path="/case/report" element={<CaseReport />} />
             </Routes>
           </div>
         </Router>

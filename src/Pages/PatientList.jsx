@@ -14,7 +14,7 @@ function classNames(...classes) {
 
 export default function PatientList() {
     const [patients, setPatients] = useState([]);
-    const { loader, setloader, modal, setmodal, patientId, setpatientId } = useModal()
+    const { loader, setloader, modal, setmodal, patientId, setpatientId, caseNo, setcaseNo } = useModal()
     const [searchPatient, setSearchPatient] = useState('')
     const [popupMessage, setPopupMessage] = useState("")
     const nav = useNavigate()
@@ -44,8 +44,9 @@ export default function PatientList() {
                 }, {});
                 setTotalCases(casesCount);
                 console.log(totalCases);
+
             } catch (error) {
-                console.error(error);
+                console.error(error.response.data.message)
                 setmodal(true)
                 setPopupMessage(error.response?.data?.message || "An error occurred");
             }
@@ -65,9 +66,17 @@ export default function PatientList() {
         }
     }, [searchPatient, patients])
 
-    const newcase = (index) => {
+    const newcase = async (index) => {
         const patientid = patients[index]._id
         setpatientId(patientid)
+        // try {
+        //     const res = await get('/case/getCaseNo')
+        //     const increament = res.data.caseNo + 1
+        //     setcaseNo(increament)
+        //     console.log(increament);
+        // } catch (error) {
+        //     console.log(error.response.data.message);
+        // }
         nav('/case/chiefComplaint')
         console.log(patientId);
     }

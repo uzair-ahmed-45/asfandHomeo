@@ -11,6 +11,7 @@ export default function Modalcontext({ children }) {
   const [complain, setcomplain] = useState(JSON.parse(localStorage.getItem('complain')) || {});
   const [loggedInDoctor, setLoggedInDoctor] = useState(JSON.parse(localStorage.getItem('loggedInDoctor')) || {});
 
+
   useEffect(() => {
     localStorage.setItem('patientId', patientId);
   }, [patientId]);

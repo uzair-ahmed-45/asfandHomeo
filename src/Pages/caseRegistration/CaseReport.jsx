@@ -1,68 +1,58 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Navbar from '../Navbar';
 import Inputs from '../../Components/Inputs';
 import Button from '../../Components/Button';
 import { useModal } from '../../Hooks/useModal';
-import { put } from '../../api';
+import jspdf from "jspdf"
+import html2canvas from "html2canvas"
 import { useNavigate } from 'react-router-dom';
 import Spinner from '../../Components/Spinner';
 import Popup from '../../Components/Popup';
 
-export default function Remedies() {
+export default function CaseReport() {
+    const pdfref = useRef()
     const [popupMessage, setPopupMessage] = useState('');
-    const [remediesModal, setremediesModal] = useState(false);
-    const [remediesdone, setremediesdone] = useState(false)
-    const [remediesData, setremediesData] = useState({
-        remedies: Array(10).fill(''),
-    });
+
     const { modal, setmodal, loader, setloader, patientId, setpatientId, complainId, setcomplainId, complain, setcomplain } = useModal();
     const nav = useNavigate();
     const navigation = (path) => {
         nav(path);
         setloader(true);
     };
-    const handleInputChange = (index, value) => {
-        const newremedies = [...remediesData.remedies];
-        newremedies[index] = value;
-        setremediesData({ remedies: newremedies });
+    const pdfDownload = () => {
+        const input = pdfref.current;
+        const pdf = new jspdf('p', 'mm', 'a4', true);
+
+        // Set the desired width and height for the PDF
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = pdf.internal.pageSize.getHeight();
+
+        html2canvas(input, { scale: 1 }).then((canvas) => {
+            const imgData = canvas.toDataURL('image/png');
+            const imgWidth = canvas.width;
+            const imgHeight = canvas.height;
+
+            let imgY = 0; // Initial Y position for the image
+
+            // Calculate the ratio for resizing the image to fit the page
+            const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+
+            // Add the image to the PDF
+            pdf.addImage(imgData, 'PNG', 0, imgY, imgWidth * ratio, imgHeight * ratio);
+
+            pdf.save('CaseReport.pdf');
+        });
     };
-    const submit = async () => {
-        const filteredremedies = remediesData.remedies.filter(remedies => remedies.trim() !== "")
-        const remediesObj = {
-            complainId,
-            remedies: filteredremedies.join(', ')
-        };
-        try {
-            const response = await put('/case/remedies', remediesObj);
-            console.log(response);
-            if (response) {
-                console.log(response.data);
-                setcomplain(response.data)
-                setremediesdone(true)
-                setloader(true);
-                setremediesModal(false)
-            }
-        } catch (error) {
-            console.log(error);
-            if (error.response.data.message === 'Complain ID is required') {
-                setmodal(true);
-                setPopupMessage('Complain ID is required');
-            } else if (error.response.data.message === 'Complain not found') {
-                setmodal(true);
-                setPopupMessage('Complain not found');
-            } else {
-                setmodal(true);
-                setPopupMessage('Something went wrong');
-            }
-        }
-    };
+
+
+
     return (
         <>
             {loader ? <Spinner /> :
                 <>
-                    <div className='sm:flex h-auto py-20 sm:py-10 bg-gray-200'>
+                    <div className='sm:flex h-auto py-20 sm:py-10 bg-gray-200' >
                         <Navbar />
-                        <div className='flex flex-col gap-y-5 justify-center sm:justify-between items-center w-[90vw] sm:w-[70vw] md:w-[70vw] lg:w-[60vw] md:ms-64 sm:ms-48 lg:ms-80 ms-5 xl:ms-[450px] bg-white mt-10 sm:mt-10 py-5 rounded-xl shadow-xl px-5'>
+                        <div className='flex flex-col gap-y-5 justify-center sm:justify-between items-center w-[90vw] sm:w-[70vw] md:w-[70vw] lg:w-[60vw] md:ms-64 sm:ms-48 lg:ms-80 ms-5 xl:ms-[450px] bg-white mt-10 sm:mt-10 py-5 rounded-xl shadow-xl px-5' ref={pdfref}>
                             <div className='flex flex-col sm:flex-row justify-between items-center w-full gap-y-5 sm:px-10'>
                                 <div className='flex items-center'>
                                     <img src="/history.png" alt="" className='w-24 h-24' />
@@ -448,11 +438,6 @@ export default function Remedies() {
                                 </>
                                     : null
                                 }
-                                {remediesdone ? null : <div className='flex justify-center'>
-                                    <Button class="hover:transform-none sm:px-10 px-6 sm:text-base text-xs" name="Suggest Remedies" click={() => setremediesModal(true)} />
-                                </div>
-
-                                }
                                 {complain?.complain?.remedies ? <>
                                     <h1 className='text-xl font-bold text-[rgb(22,57,90)] sm:px-10'>Remedies</h1>
                                     <div className='grid  justify-between grid-cols-1 sm:text-base text-xs grid-rows-1 sm:justify-center sm:w-full w-[80vw] sm:px-10  gap-5'>
@@ -468,34 +453,8 @@ export default function Remedies() {
                                 }
                                 <div className='flex justify-center gap-x-5 mt-5'>
                                     <Button name="Back to home" class="sm:px-10 px-6 hover:transform-none sm:text-base text-xs" click={() => navigation('/home')} />
-                                    <Button name="Generate Report" class="sm:px-10 px-6 hover:transform-none sm:text-base text-xs" click={()=> navigation('/case/report')} />
+                                    <Button name="Generate pdf" class="sm:px-10 px-6 hover:transform-none sm:text-base text-xs" click={pdfDownload} />
                                 </div>
-                                {
-                                    remediesModal &&
-                                    <>
-                                        <div className="scale-125 fixed top-0 left-0 right-0 bottom-0 " style={{ background: "rgb(189, 189, 189, 0.9)" }} onClick={() => setremediesModal(false)}></div>
-                                        <div className="flex flex-col justify-center items-center gap-3 sm:gap-y-5 fixed left-[50%] top-[50%] w-[90vw] sm:w-[60vw] sm:h-auto h-[60vh]  bg-[white] rounded-lg shadow-lg sm:py-4 px-4" style={{ transform: "translate(-50% , -50%)" }}>
-                                            <h1 className='text-xl font-bold text-[rgb(22,57,90)]'>Suggest Remedies</h1>
-                                            <div className='grid grid-cols-2 justify-between sm:gap-5 gap-3'>
-                                                {remediesData.remedies.map((remedies, index) => (
-                                                    <div key={index} className='flex justify-between gap-x-3 items-center'>
-                                                        <label htmlFor="" className=''>{index + 1}</label>
-                                                        <Inputs
-                                                            type="text"
-                                                            name={`remedies${index}`}
-                                                            value={remedies}
-                                                            changeevent={(e) => handleInputChange(index, e.target.value)}
-                                                            class="border-b-2 border-solid border-[rgb(22,57,90)] hover:drop-shadow-none hover:shadow-none rounded-none focus:outline-none px-2 py-0 w-[30vw] sm:w-[20vw]"
-                                                        />
-                                                    </div>
-                                                ))}
-                                            </div>
-
-                                            <button className='py-1 px-4 text-xl rounded-xl font-medium border-1 border-solid border-[rgb(95,141,184)] text-[rgb(95,141,184)]  hover:border-none hover:bg-[rgb(95,141,184)] hover:text-white hover:transition-all hover:duration-300 hover:scale-110' onClick={submit} >Submit</button>
-                                        </div>
-                                    </>
-
-                                }
 
                             </div>
                         </div>

@@ -26,10 +26,12 @@ export default function LabTest() {
         setLabTestData({ labtests: newLabtests });
     };
 
-    const next = async () => {
+    const next = async (event) => {
+        event.preventDefault();
+        const filteredlabtest = labTestData.labtests.filter(test => test.trim() !== "")
         const labTestObj = {
             complainId,
-            tests: labTestData.labtests.join(', '),
+            tests: filteredlabtest.join(', '),
         };
         try {
             const response = await put('/case/labTests', labTestObj);
@@ -63,19 +65,9 @@ export default function LabTest() {
                     <div className='sm:flex h-auto py-20 sm:py-5 bg-gray-200'>
                         <Navbar />
                         <div className='flex flex-col gap-y-5 justify-center sm:justify-between items-center w-[90vw] sm:w-[70vw] md:w-[70vw] lg:w-[60vw] md:ms-64 sm:ms-48 lg:ms-80 ms-5 xl:ms-[450px] bg-white mt-10 sm:mt-10 py-5 rounded-xl shadow-xl px-5'>
-                            <div className='flex flex-col sm:flex-row justify-between items-center w-full gap-y-5 sm:px-10'>
-                                <div className='flex items-center'>
-                                    <img src="/history.png" alt="" className='w-24 h-24' />
-                                    <h1 className='text-3xl font-bold text-[rgb(22,57,90)]'>Lab Tests</h1>
-                                </div>
-                                <div className='flex flex-col justify-end sm:items-end gap-y-2'>
-                                    <div className='flex gap-x-4'>
-                                        <h1>Case No</h1>
-                                        <div className='border-b-2 border-solid border-[rgb(22,57,90)] px-1'>
-                                            <h1 className='text-sm text-[rgb(22,57,90)]'>18620</h1>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div className='flex items-center'>
+                                <img src="/history.png" alt="" className='w-24 h-24' />
+                                <h1 className='text-3xl font-bold text-[rgb(22,57,90)]'>Lab Tests</h1>
                             </div>
                             <form action='' onSubmit={next} className='flex flex-col sm:flex-row flex-wrap justify-between w-full sm:px-10 gap-y-5'>
                                 {labTestData.labtests.map((test, index) => (

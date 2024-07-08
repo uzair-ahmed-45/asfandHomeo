@@ -84,21 +84,12 @@ export default function Nature() {
             <div className='sm:flex sm:h-auto h-auto py-20 sm:py-10 bg-gray-200'>
                 <Navbar />
                 <div className='flex flex-col gap-y-5 justify-center sm:justify-between items-center w-[90vw] sm:w-[70vw] md:w-[70vw] lg:w-[60vw] md:ms-64 sm:ms-48 lg:ms-80 ms-5 xl:ms-[450px] bg-white mt-5  sm:mt-10 py-5 rounded-xl shadow-xl px-5'>
-                    <div className='flex flex-col sm:flex-row justify-between items-center w-full gap-y-5 sm:px-10'>
-                        <div className='flex items-center sm:gap-x-0 gap-x-3'>
-                            <img src="/nature.png" alt="" className='w-24 h-20' />
-                            <h1 className='text-3xl font-bold text-[rgb(22,57,90)]'>Nature</h1>
-                        </div>
-                        <div className='flex flex-col justify-end sm:items-end gap-y-2'>
-                            <div className='flex gap-x-4 '>
-                                <h1>Case No</h1>
-                                <div className='border-b-2 border-solid border-[rgb(22,57,90)] px-1'>
-                                    <h1 className='text-sm text-[rgb(22,57,90)]'>18620</h1>
-                                </div>
-                            </div>
-                        </div>
+                    <div className='flex items-center sm:gap-x-0 gap-x-3'>
+                        <img src="/nature.png" alt="" className='w-24 h-20' />
+                        <h1 className='text-3xl font-bold text-[rgb(22,57,90)]'>Nature</h1>
                     </div>
-                    <div className='flex flex-col justify-between w-full sm:px-10 gap-y-5 mt-5'>
+
+                    <div className='flex flex-col justify-between w-full items-center sm:px-10 gap-y-5 mt-5'>
                         <div className='border-2 border-solid border-[#16395A] rounded sm:rounded-lg'>
                             <div className='flex border-b-2 border-solid border-[#16395A]'>
                                 <div className='flex flex-col justify-center w-1/3 items-center border-r-2 border-solid border-[#16395A]  '>
@@ -141,7 +132,7 @@ export default function Nature() {
                                 </div>
                             </div>
                         </div>
-                        <div className='flex items-center sm:gap-x-0 gap-x-3 m-auto sm:m-0'>
+                        <div className='flex items-center sm:gap-x-0 gap-x-3'>
                             <img src="/anxiety.png" alt="" className='w-20 h-20' />
                             <h1 className='text-xl font-bold text-[rgb(22,57,90)]'>Anxiety</h1>
                         </div>
