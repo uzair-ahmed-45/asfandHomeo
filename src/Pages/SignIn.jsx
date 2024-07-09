@@ -55,16 +55,16 @@ export default function SignIn() {
         const response = await post('/doctor/login', doctor)
         if (response) {
           setloader(true)
+          const doctor = response.data
+          console.log(doctor);
+          setLoggedInDoctor(doctor)
+          console.log(loggedInDoctor)
           navigate("/home");
           setverifyUser(true)
           let expires = new Date()
           expires.setTime(expires.getTime() + (response.data.expires_in * 1000))
           setCookie('access_token', response.data.access_token, { path: '/home', expires })
           setCookie('refresh_token', response.data.refresh_token, { path: '/home', expires })
-
-          const doctor = response.data
-          setLoggedInDoctor(doctor)
-          console.log(loggedInDoctor);
           setName('')
           setPassword('')
         }

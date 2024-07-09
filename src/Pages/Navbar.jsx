@@ -3,11 +3,20 @@ import Navlist from '../Components/Navlist'
 import Button from '../Components/Button'
 import MobNavlist from '../Components/MobNavlist'
 import { useNavigate } from 'react-router-dom'
+import { useModal } from '../Hooks/useModal'
 
 export default function Navbar() {
     const nav = useNavigate()
+    const { modal, setmodal, verifyUser, setverifyUser, loader, setloader, loggedInDoctor, setLoggedInDoctor } = useModal()
+
     const navigation = (path) => {
         nav(path)
+    }
+    function logout() {
+        localStorage.removeItem('loggedInDoctor', loggedInDoctor)
+        console.log(loggedInDoctor);
+        nav('/')
+        setloader(true)
     }
     return (
         <>
@@ -21,7 +30,7 @@ export default function Navbar() {
                         <Navlist />
                     </div>
                     <div>
-                        <Button name="Logout" click={() => navigation('/')} />
+                        <Button name="Logout" click={logout} />
                     </div>
 
                 </div>
@@ -33,7 +42,7 @@ export default function Navbar() {
                         <p className='text-xs'>BY DR.ASFANDYAR</p>
                     </div>
                     <div>
-                        <i class="fa-solid fa-right-from-bracket text-[30px] text-[rgb(22,57,90)] hover:text-[rgb(95,141,184)] hover:scale-125 hover:transition-all hover:duration-300" onClick={() => navigation('/')}></i>
+                        <i class="fa-solid fa-right-from-bracket text-[30px] text-[rgb(22,57,90)] hover:text-[rgb(95,141,184)] hover:scale-125 hover:transition-all hover:duration-300" onClick={logout}></i>
                     </div>
 
                 </div>

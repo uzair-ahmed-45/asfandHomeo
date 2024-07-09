@@ -23,6 +23,8 @@ import Diagnosed from './Pages/caseRegistration/Diagnosed';
 import Remedies from './Pages/caseRegistration/Remedies';
 import CaseReport from './Pages/caseRegistration/CaseReport';
 import PatientCases from './Pages/PatientCases';
+import DoctorProfie from './Pages/DoctorProfie';
+import ChangePassword from './Pages/ChangePassword';
 
 
 function App() {
@@ -38,6 +40,8 @@ function App() {
           <div className='bg-gray-200 h-auto'>
             <Routes>
               <Route path="/" element={<SignIn />} />
+              <Route path="/profile" element={<DoctorProfie />} />
+              <Route path="/profile/changePassword" element={<ChangePassword />} />
               <Route path="/home" element={<Home />} />
               {/* <Route path="/Signup" element={<Signup />} /> */}
               <Route path="/case/patientform" element={<Patientform />} />

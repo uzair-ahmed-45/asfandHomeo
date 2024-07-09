@@ -29,7 +29,7 @@ export default function Navlist() {
                         <i class="fa-solid fa-calendar-plus hover:text-[rgb(95,141,184)] hover:transition-all hover:duration-500 hover:scale-125" style={{ fontSize: "20px" }}></i>
                         <li className='sm:text-xs md:text-md lg:text-lg hover:text-[rgb(95,141,184)] hover:transition-all hover:duration-500'>Add a new Case</li>
                     </div>
-                    <div className='flex sm:gap-x-2 md:gap-x-4 cursor-pointer ' onClick={()=> navigation("/newcase")}>
+                    <div className='flex sm:gap-x-2 md:gap-x-4 cursor-pointer ' onClick={()=> navigation("/profile")}>
                         <i class="fa-solid fa-user-doctor hover:text-[rgb(95,141,184)] hover:transition-all hover:duration-500 hover:scale-125" style={{ fontSize: "20px" }}></i>
                         <li className='sm:text-xs md:text-md lg:text-lg hover:text-[rgb(95,141,184)] hover:transition-all hover:duration-500'>Profile</li>
                     </div>
