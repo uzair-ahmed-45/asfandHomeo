@@ -142,8 +142,8 @@ export default function PatientList() {
                                 </div>
                             </div>
                             <div className=' flex flex-col '>
-                                {
-                                    filteredPatient && filteredPatient.map((items, index) => (
+                                {filteredPatient.length > 0 ?
+                                    filteredPatient.map((items, index) => (
                                         <div key={index} className='flex justify-between items-center odd:bg-gray-300 px-5 sm:px-10 py-3 relative'>
                                             <div className='flex flex-col sm:w-[7vw] w-[10vw]'>
                                                 <h1 className='font-medium text-sm xl:text-md'>{items.fullname}</h1>
@@ -167,7 +167,10 @@ export default function PatientList() {
                                             </div>
 
                                         </div>
-                                    ))
+                                    )) : 
+                                    <div>
+                                        <h1 className='text-center mt-5'>No Patients Found</h1>
+                                    </div>
                                 }
                             </div>
                         </div>

@@ -9,6 +9,9 @@
   font-family: "Poppins", sans-serif;
 
 }
+body{
+  background-color: #e5e7eb ;
+}
 
 ::-webkit-scrollbar {
   width: 10px;

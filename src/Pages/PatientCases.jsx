@@ -455,7 +455,7 @@ export default function PatientCases() {
                                         </div>
                                     </div>
                                 )) :
-                                <div className='flex flex-col gap-y-5 justify-center sm:justify-between items-center w-[90vw] sm:w-[70vw] md:w-[70vw] lg:w-[60vw] md:ms-64 sm:ms-48 lg:ms-80 ms-5 xl:ms-[450px] bg-white mt-10 sm:mt-10 py-5 rounded-xl shadow-xl px-5 snap-start text-xl font-bold '>404 Not found Any Case for this Patient</div>
+                                <div className='flex flex-col gap-y-5 justify-center sm:justify-between items-center w-[90vw] sm:w-[70vw] md:w-[70vw] lg:w-[60vw] md:ms-64 sm:ms-48 lg:ms-80 ms-5 xl:ms-[450px] bg-white mt-40 sm:mt-40 py-5 rounded-xl shadow-xl px-5 snap-start text-xl font-bold '>404 Not found Any Case for this Patient</div>
                             }
                             {/* </Slider> */}
 
