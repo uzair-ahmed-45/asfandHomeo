@@ -20,7 +20,7 @@ export default function Diagnosed() {
         setloader(true);
     };
 
-    const next = async (w) => {
+    const next = async (e) => {
         e.preventDefault()
         const res = await get('/case/getCaseNo')
         const newCase = res.data.caseNo

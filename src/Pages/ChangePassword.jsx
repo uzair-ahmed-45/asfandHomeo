@@ -13,14 +13,18 @@ export default function ChangePassword() {
     const nav = useNavigate()
     const [showOldPassword, setshowOldPassword] = useState(false);
     const [showNewPassword, setshowNewPassword] = useState(false);
+    const [showConfirmPassword, setshowConfirmPassword] = useState(false);
     const [popupMessage, setpopupMessage] = useState('')
     const [oldPassword, setoldPassword] = useState('')
     const [newPassword, setnewPassword] = useState('')
-    const changePassword = async () => {
+    const [confirmNewPassword, setconfirmNewPassword] = useState('')
+    const changePassword = async (e) => {
+        e.preventDefault()
         const changePasswordObj = {
             doctorId: loggedInDoctor.adminFound._id,
             oldPassword: oldPassword,
-            newPassword: newPassword
+            newPassword: newPassword,
+            confirmPassword: confirmNewPassword
         }
         try {
             const response = await post('/doctor/changePassword', changePasswordObj)
@@ -28,10 +32,15 @@ export default function ChangePassword() {
             setpopupMessage("Password Changed Successfully")
             setoldPassword('')
             setnewPassword('')
+            setconfirmNewPassword('')
         } catch (error) {
+            console.log(error.response.data.message);
             if (error.response.data.message === "Invalid Old Password") {
                 setmodal(true)
                 setpopupMessage("Invalid Old Password")
+            } else if (error.response.data.message === "Password Doesnot Matched") {
+                setmodal(true)
+                setpopupMessage("Password Doesnot Matched")
             }
         }
     }
@@ -41,6 +50,9 @@ export default function ChangePassword() {
     }
     function shownew() {
         setshowNewPassword(!showNewPassword)
+    }
+    function showconfirm() {
+        setshowConfirmPassword(!showConfirmPassword)
     }
 
     const navigation = (path) => {
@@ -82,6 +94,17 @@ export default function ChangePassword() {
                                                 <i className="fa-solid fa-eye-slash absolute right-[5%] top-[50%] transform -translate-y-1/2 cursor-pointer hover:text-[rgb(95,141,184)] text-gray-500 hover:transition-all hover:duration-500 hover:scale-125" onClick={shownew}></i>
                                             ) : (
                                                 <i className="fa-solid fa-eye absolute right-[5%] top-[50%] transform -translate-y-1/2 cursor-pointer hover:text-[rgb(95,141,184)] text-gray-500 hover:transition-all hover:duration-500 hover:scale-125" onClick={shownew}></i>
+                                            )}
+                                        </div>
+                                    </div>
+                                    <div className='flex flex-col sm:flex-row justify-between w-full  sm:items-center gap-y-2'>
+                                        <h1 className='text-lg '>Confirm New Password</h1>
+                                        <div className='relative'>
+                                            <Inputs class="hover:drop-shadow-none hover:shadow-none rounded-lg border-2 border-solid border-[rgb(22,57,90)] px-4 py-2" type={showConfirmPassword ? `text` : `Password`} changeevent={(e) => setconfirmNewPassword(e.target.value)} value={confirmNewPassword} />
+                                            {showConfirmPassword ? (
+                                                <i className="fa-solid fa-eye-slash absolute right-[5%] top-[50%] transform -translate-y-1/2 cursor-pointer hover:text-[rgb(95,141,184)] text-gray-500 hover:transition-all hover:duration-500 hover:scale-125" onClick={showconfirm}></i>
+                                            ) : (
+                                                <i className="fa-solid fa-eye absolute right-[5%] top-[50%] transform -translate-y-1/2 cursor-pointer hover:text-[rgb(95,141,184)] text-gray-500 hover:transition-all hover:duration-500 hover:scale-125" onClick={showconfirm}></i>
                                             )}
                                         </div>
 

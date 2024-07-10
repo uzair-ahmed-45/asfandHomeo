@@ -76,7 +76,7 @@ export default function Remedies() {
                                 </div>
                             </div>
                             {/* case report */}
-                            <form action='' onSubmit={submit} className='flex flex-col justify-between gap-y-5 w-[70vw] sm:w-full '>
+                            <div className='flex flex-col justify-between gap-y-5 w-[70vw] sm:w-full '>
                                 {/* Basic Info */}<h1 className='text-xl sm:px-10 font-bold text-[rgb(22,57,90)]'>Basic Info</h1>
                                 <div className='block'>
                                     <div className='grid  justify-between grid-cols-1 sm:text-base text-xs sm:grid-cols-2 grid-rows-2  sm:justify-center sm:w-full w-[80vw] sm:px-10  gap-5'>
@@ -472,7 +472,7 @@ export default function Remedies() {
                                     remediesModal &&
                                     <>
                                         <div className="scale-125 fixed top-0 left-0 right-0 bottom-0 " style={{ background: "rgb(189, 189, 189, 0.9)" }} onClick={() => setremediesModal(false)}></div>
-                                        <div className="flex flex-col justify-center items-center gap-3 sm:gap-y-5 fixed left-[50%] top-[50%] w-[90vw] sm:w-[60vw] sm:h-auto h-[60vh]  bg-[white] rounded-lg shadow-lg sm:py-4 px-4" style={{ transform: "translate(-50% , -50%)" }}>
+                                        <form action='' onSubmit={submit} className="flex flex-col justify-center items-center gap-3 sm:gap-y-5 fixed left-[50%] top-[50%] w-[90vw] sm:w-[60vw] sm:h-auto h-[60vh]  bg-[white] rounded-lg shadow-lg sm:py-4 px-4" style={{ transform: "translate(-50% , -50%)" }}>
                                             <h1 className='text-xl font-bold text-[rgb(22,57,90)]'>Suggest Remedies</h1>
                                             <div className='grid grid-cols-2 justify-between sm:gap-5 gap-3'>
                                                 {remediesData.remedies.map((remedies, index) => (
@@ -490,12 +490,12 @@ export default function Remedies() {
                                             </div>
 
                                             <button className='py-1 px-4 text-xl rounded-xl font-medium border-1 border-solid border-[rgb(95,141,184)] text-[rgb(95,141,184)]  hover:border-none hover:bg-[rgb(95,141,184)] hover:text-white hover:transition-all hover:duration-300 hover:scale-110' onClick={submit} >Submit</button>
-                                        </div>
+                                        </form>
                                     </>
 
                                 }
 
-                            </form>
+                            </div>
                         </div>
                     </div>
                     {modal && popupMessage && <Popup text={popupMessage} />}
