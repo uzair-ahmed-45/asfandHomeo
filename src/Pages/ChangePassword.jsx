@@ -64,7 +64,7 @@ export default function ChangePassword() {
     return (
         <>
             {loader ? <Spinner /> :
-                <div className='sm:flex h-screen py-20 sm:py-20 lg:py-24 bg-gray-200'>
+                <div className='sm:flex h-screen py-16 sm:py-20 lg:py-24 bg-gray-200'>
                     <Navbar />
                     {
                         loggedInDoctor ?

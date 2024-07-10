@@ -45,7 +45,7 @@ export default function PatientList() {
             }
         };
         fetchPatients();
-    }, []);
+    }, [setloader, patients]);
 
     useEffect(() => {
         if (searchPatient) {
