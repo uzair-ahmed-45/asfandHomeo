@@ -77,7 +77,7 @@ export default function ChangePassword() {
                                     <div className='flex sm:flex-row flex-col justify-between w-full sm:items-center gap-y-2 '>
                                         <h1 className='text-lg '>Old Password</h1>
                                         <div className='relative '>
-                                            <Inputs class="hover:drop-shadow-none hover:shadow-none rounded-lg border-2 border-solid border-[rgb(22,57,90)] px-4 py-2" type={showOldPassword ? `text` : `Password`} changeevent={(e) => setoldPassword(e.target.value)} value={oldPassword} />
+                                            <Inputs class="hover:drop-shadow-none hover:shadow-none rounded-lg border-2 border-solid border-[rgb(22,57,90)] px-4 py-2 w-full" type={showOldPassword ? `text` : `Password`} changeevent={(e) => setoldPassword(e.target.value)} value={oldPassword} />
                                             {showOldPassword ? (
                                                 <i className="fa-solid fa-eye-slash absolute right-[5%] top-[50%] transform -translate-y-1/2 cursor-pointer hover:text-[rgb(95,141,184)] text-gray-500 hover:transition-all hover:duration-500 hover:scale-125" onClick={show}></i>
                                             ) : (
@@ -89,25 +89,13 @@ export default function ChangePassword() {
                                     <div className='flex flex-col sm:flex-row justify-between w-full  sm:items-center gap-y-2'>
                                         <h1 className='text-lg '>New Password</h1>
                                         <div className='relative'>
-                                            <Inputs class="hover:drop-shadow-none hover:shadow-none rounded-lg border-2 border-solid border-[rgb(22,57,90)] px-4 py-2" type={showNewPassword ? `text` : `Password`} changeevent={(e) => setnewPassword(e.target.value)} value={newPassword} />
+                                            <Inputs class="hover:drop-shadow-none hover:shadow-none rounded-lg border-2 border-solid border-[rgb(22,57,90)] px-4 py-2 w-full" type={showNewPassword ? `text` : `Password`} changeevent={(e) => setnewPassword(e.target.value)} value={newPassword} />
                                             {showNewPassword ? (
                                                 <i className="fa-solid fa-eye-slash absolute right-[5%] top-[50%] transform -translate-y-1/2 cursor-pointer hover:text-[rgb(95,141,184)] text-gray-500 hover:transition-all hover:duration-500 hover:scale-125" onClick={shownew}></i>
                                             ) : (
                                                 <i className="fa-solid fa-eye absolute right-[5%] top-[50%] transform -translate-y-1/2 cursor-pointer hover:text-[rgb(95,141,184)] text-gray-500 hover:transition-all hover:duration-500 hover:scale-125" onClick={shownew}></i>
                                             )}
                                         </div>
-                                    </div>
-                                    <div className='flex flex-col sm:flex-row justify-between w-full  sm:items-center gap-y-2'>
-                                        <h1 className='text-lg '>Confirm New Password</h1>
-                                        <div className='relative'>
-                                            <Inputs class="hover:drop-shadow-none hover:shadow-none rounded-lg border-2 border-solid border-[rgb(22,57,90)] px-4 py-2" type={showConfirmPassword ? `text` : `Password`} changeevent={(e) => setconfirmNewPassword(e.target.value)} value={confirmNewPassword} />
-                                            {showConfirmPassword ? (
-                                                <i className="fa-solid fa-eye-slash absolute right-[5%] top-[50%] transform -translate-y-1/2 cursor-pointer hover:text-[rgb(95,141,184)] text-gray-500 hover:transition-all hover:duration-500 hover:scale-125" onClick={showconfirm}></i>
-                                            ) : (
-                                                <i className="fa-solid fa-eye absolute right-[5%] top-[50%] transform -translate-y-1/2 cursor-pointer hover:text-[rgb(95,141,184)] text-gray-500 hover:transition-all hover:duration-500 hover:scale-125" onClick={showconfirm}></i>
-                                            )}
-                                        </div>
-
                                     </div>
                                 </div>
                                 <div className='flex justify-center '>
