@@ -8,6 +8,7 @@ import Popup from '../Components/Popup';
 import Spinner from '../Components/Spinner';
 import { get, post } from '../api';
 import { useCookies } from 'react-cookie'
+import { jwtDecode } from "jwt-decode"
 
 export default function SignIn() {
   const [name, setName] = useState('');
@@ -15,18 +16,21 @@ export default function SignIn() {
   const [error, seterror] = useState({})
   const [popupMessage, setPopupMessage] = useState('');
   const { modal, setmodal, verifyUser, setverifyUser, loader, setloader, loggedInDoctor, setLoggedInDoctor } = useModal()
-
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [hidePassword, sethidePassword] = useState(true);
   const [cookies, setCookie] = useCookies(['access_token', 'refresh_token'])
 
-
+  useEffect(() => {
+    if (cookies.access_token && cookies.refresh_token) {
+      navigate('/home');
+    }
+  }, [cookies, navigate]);
   function show() {
     setShowPassword(!showPassword);
     sethidePassword(!hidePassword)
   }
 
-  const navigate = useNavigate();
   const validateDoctor = (data) => {
     const newErrors = {}
     let isValid = true
@@ -61,10 +65,21 @@ export default function SignIn() {
           console.log(loggedInDoctor)
           navigate("/home");
           setverifyUser(true)
-          let expires = new Date()
-          expires.setTime(expires.getTime() + (response.data.expires_in * 1000))
-          setCookie('access_token', response.data.access_token, { path: '/home', expires })
-          setCookie('refresh_token', response.data.refresh_token, { path: '/home', expires })
+          console.log(response.data.accessToken);
+          console.log(response.data.refreshToken);
+          // Decode tokens to get expiration time
+          const accessToken = response.data.accessToken;
+          const refreshToken = response.data.refreshToken;
+
+          const decodedAccessToken = jwtDecode(accessToken);
+          const decodedRefreshToken = jwtDecode(refreshToken);
+
+          const accessTokenExpires = new Date(decodedAccessToken.exp * 1000);
+          const refreshTokenExpires = new Date(decodedRefreshToken.exp * 1000);
+
+          setCookie('access_token', accessToken, { path: '/', expires: accessTokenExpires });
+          setCookie('refresh_token', refreshToken, { path: '/', expires: refreshTokenExpires });
+
           setName('')
           setPassword('')
         }
