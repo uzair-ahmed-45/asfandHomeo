@@ -20,9 +20,9 @@ export default function Diagnosed() {
         setloader(true);
     };
 
-    const next = async () => {
+    const next = async (w) => {
+        e.preventDefault()
         const res = await get('/case/getCaseNo')
-        console.log(res.data);
         const newCase = res.data.caseNo
         setcasenumber(newCase)
 
@@ -32,7 +32,6 @@ export default function Diagnosed() {
         }
         try {
             const rs = await put('/case/caseNo', caseNoObj)
-            console.log(rs.data);
         } catch (error) {
             console.log(error);
         }
@@ -43,14 +42,10 @@ export default function Diagnosed() {
         try {
             if (dignosisData) {
                 const response = await put('/case/diagnosed', diagnosedObj);
-                console.log(response);
+                setloader(true);
                 if (response) {
-                    console.log(response.data);
                     setcomplain(response.data)
-                    console.log(complain);
                     setcomplainId(response.data.complain._id);
-                    console.log(complainId);
-                    setloader(true);
                     nav('/case/remedies')
                 }
             } else {
@@ -58,7 +53,6 @@ export default function Diagnosed() {
             }
 
         } catch (error) {
-            console.log(error);
             if (error.response.data.message === 'Complain ID is required') {
                 setmodal(true);
                 setPopupMessage('Complain ID is required');
@@ -78,7 +72,7 @@ export default function Diagnosed() {
                 <>
                     <div className='sm:flex h-auto py-20 sm:py-24 bg-gray-200'>
                         <Navbar />
-                        <div className='flex flex-col gap-y-5 justify-center sm:justify-between items-center w-[90vw] sm:w-[70vw] md:w-[70vw] lg:w-[60vw] md:ms-64 sm:ms-48 lg:ms-80 ms-5 xl:ms-[450px] bg-white mt-10 sm:mt-10 py-5 rounded-xl shadow-xl px-5'>
+                        <form action='' onSubmit={next} className='flex flex-col gap-y-5 justify-center sm:justify-between items-center w-[90vw] sm:w-[70vw] md:w-[70vw] lg:w-[60vw] md:ms-64 sm:ms-48 lg:ms-80 ms-5 xl:ms-[450px] bg-white mt-10 sm:mt-10 py-5 rounded-xl shadow-xl px-5'>
                             <div className='flex items-center'>
                                 <img src="/diagnosed.png" alt="" className='w-24 h-20' />
                                 <h1 className='text-3xl font-bold text-[rgb(22,57,90)]'>Diagnosed</h1>
@@ -92,7 +86,7 @@ export default function Diagnosed() {
                             <div className=''>
                                 <Button name="Next" class="rounded-lg hover:transform-none mt-5 w-full" click={next} />
                             </div>
-                        </div>
+                        </form>
                     </div>
                     {modal && popupMessage && <Popup text={popupMessage} />}
                 </>

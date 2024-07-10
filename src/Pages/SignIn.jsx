@@ -49,24 +49,22 @@ export default function SignIn() {
     return isValid
   }
 
-  const handleSignIn = async () => {
+  const handleSignIn = async (e) => {
+    e.preventDefault()
     const doctor = {
       name: name,
       password: password,
     };
     if (validateDoctor(doctor)) {
+      setloader(true)
       try {
         const response = await post('/doctor/login', doctor)
         if (response) {
-          setloader(true)
           const doctor = response.data
-          console.log(doctor);
           setLoggedInDoctor(doctor)
-          console.log(loggedInDoctor)
           navigate("/home");
+          setloader(true)
           setverifyUser(true)
-          console.log(response.data.accessToken);
-          console.log(response.data.refreshToken);
           // Decode tokens to get expiration time
           const accessToken = response.data.accessToken;
           const refreshToken = response.data.refreshToken;
@@ -79,21 +77,12 @@ export default function SignIn() {
 
           setCookie('access_token', accessToken, { path: '/', expires: accessTokenExpires });
           setCookie('refresh_token', refreshToken, { path: '/', expires: refreshTokenExpires });
-
-          setName('')
-          setPassword('')
         }
       } catch (error) {
-        console.log(error.response.data.message);
         setPopupMessage(error.response.data.message)
         setmodal(true)
-        setName('')
-        setPassword('')
       }
     }
-
-
-
   }
 
   return (
@@ -104,7 +93,7 @@ export default function SignIn() {
             <div className='bg-[rgba(22,57,90,0.26)] h-screen  flex '>
               <div className='w-[80vw] lg:w-1/2  flex flex-col items-center m-auto justify-center gap-y-10 py-10'>
                 <i className="fa-solid fa-users hover:text-[rgb(95,141,184)] text-[rgb(22,57,90)] hover:transition-all hover:duration-500 hover:scale-125" style={{ fontSize: "80px" }}></i>
-                <div className='flex flex-col gap-y-6 items-center'>
+                <form action='' className='flex flex-col gap-y-6 items-center' onSubmit={handleSignIn}>
                   <div className='relative w-full'>
                     <i className="fa-solid fa-user absolute left-4 top-3 hover:text-[rgb(95,141,184)] text-gray-500 hover:transition-all hover:duration-500 hover:scale-125" style={{ fontSize: "25px" }}></i>
                     <Inputs class="w-full" type="text" placeholder="Name" changeevent={(e) => setName(e.target.value)} />
@@ -125,7 +114,7 @@ export default function SignIn() {
                     <h1 className='text-[rgb(22,57,90)] font-bold text-xs md:text-sm text-center cursor-pointer'>Forget Password?</h1>
                   </div>
                   <Button name="Sign In" click={handleSignIn} />
-                </div>
+                </form>
               </div>
               {popupMessage && modal && <Popup text={popupMessage} />}
 

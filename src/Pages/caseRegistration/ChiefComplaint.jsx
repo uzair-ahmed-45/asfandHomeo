@@ -62,6 +62,7 @@ export default function ChiefComplaint() {
 
 
     const next = async (e) => {
+        e.preventDefault()
         const chiefComplaint = {
             patientid: patientId,
             StartDate: formData.whenStarted,
@@ -78,16 +79,13 @@ export default function ChiefComplaint() {
         }
         try {
             const response = await post("/case/chiefComplaint", chiefComplaint)
+            setloader(true)
             if (response) {
                 console.log(response.data)
                 nav('/case/generals')
-                console.log(response.data.createdchiefComplaint._id);
                 setcomplainId(response.data.createdchiefComplaint._id)
-                console.log(complainId);
-                setloader(true)
             }
         } catch (error) {
-            console.log(error.response.data.message);
             setPopupMessage(error.response.data.message)
             setmodal(true)
         }
@@ -106,7 +104,7 @@ export default function ChiefComplaint() {
                                 <img src="/chiefComplaint.png" alt="" className='w-24 h-24' />
                                 <h1 className='text-3xl font-bold text-[rgb(22,57,90)]'>Chief Complaint</h1>
                             </div>
-                            <div className='flex flex-col justify-between w-full sm:px-10 gap-y-5 mt-5'>
+                            <form action='' onSubmit={next} className='flex flex-col justify-between w-full sm:px-10 gap-y-5 mt-5'>
                                 <div className='flex flex-col sm:flex-row justify-between sm:items-center '>
                                     <label htmlFor="whenStarted" className=''>When Started</label>
                                     <Inputs type="text" name="whenStarted" value={formData.whenStarted} changeevent={handleInputChange} class="border-b-2 border-solid border-[rgb(22,57,90)] hover:drop-shadow-none hover:shadow-none rounded-none focus:outline-none px-2 py-0 w-[80vw] sm:w-[40vw]" />
@@ -151,7 +149,7 @@ export default function ChiefComplaint() {
                                     <Button name="Next" class="rounded-lg hover:transform-none mt-5" click={next} />
                                 </div>
 
-                            </div>
+                            </form>
                         </div>
                     </div>
                     {modal && popupMessage && <Popup text={popupMessage} />}

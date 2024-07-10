@@ -30,7 +30,8 @@ export default function Pasthistory() {
 
 
 
-    const next = async () => {
+    const next = async (e) => {
+        e.preventDefault()
         const pastHistoryObject = {
             complainId,
             patientHistory: PasthistoryData.patientHistory,
@@ -40,15 +41,12 @@ export default function Pasthistory() {
 
         try {
             const response = await put("/case/pastHistory", pastHistoryObject)
+            setloader(true)
             if (response) {
-                console.log(response.data)
                 setcomplainId(response.data.complain._id)
-                console.log(complainId);
-                setloader(true)
                 nav('/case/gyaneHistory')
             }
         } catch (error) {
-            console.log(error);
             if (error.response.data.message === "Complain ID is required") {
                 setmodal(true)
                 setPopupMessage("Complain ID is required")
@@ -73,7 +71,7 @@ export default function Pasthistory() {
                                 <img src="/history.png" alt="" className='w-24 h-24' />
                                 <h1 className='text-3xl font-bold text-[rgb(22,57,90)] text-center'>Past History</h1>
                             </div>
-                            <div className='flex flex-col justify-between w-full sm:px-10 gap-y-5 '>
+                            <form action='' onSubmit={next} className='flex flex-col justify-between w-full sm:px-10 gap-y-5 '>
                                 <div className='flex flex-col sm:flex-row justify-between sm:items-center '>
                                     <label htmlFor="Patient History" className=''>Patient History</label>
                                     <Inputs type="text" name="patientHistory" value={PasthistoryData.patientHistory} changeevent={handleInputChange} class="border-b-2 border-solid border-[rgb(22,57,90)] hover:drop-shadow-none hover:shadow-none rounded-none focus:outline-none px-2 py-0 w-[80vw] sm:w-[40vw]" />
@@ -90,8 +88,7 @@ export default function Pasthistory() {
                                     <Button name="Skip" class="rounded-lg hover:transform-none mt-5 w-full" click={() => navigation('/case/gyaneHistory')} />
                                     <Button name="Next" class="rounded-lg hover:transform-none mt-5 w-full" click={next} />
                                 </div>
-
-                            </div>
+                            </form>
                         </div>
                     </div>
                     {modal && popupMessage && <Popup text={popupMessage} />}

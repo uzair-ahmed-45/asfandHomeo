@@ -69,7 +69,8 @@ export default function Generals() {
         setloader(true)
     }
 
-    const next = async () => {
+    const next = async (e) => {
+        e.preventDefault()
         const generalObject = {
             complainId,
             thermal: generalData.thermal.concat(generalData.thermalOther ? [generalData.thermalOther] : []).join(', '),
@@ -91,15 +92,12 @@ export default function Generals() {
         };
         try {
             const response = await put("/case/generals", generalObject)
+            setloader(true)
             if (response) {
-                console.log(response.data);
                 setcomplainId(response.data.complain._id)
-                console.log(complainId);
-                setloader(true)
                 nav('/case/mind')
             }
         } catch (error) {
-            console.log(error.response.data.message);
             if (error.response.data.message === "Complain ID is required") {
                 setmodal(true)
                 setPopupMessage("Complain ID is required")
@@ -123,7 +121,7 @@ export default function Generals() {
                         <h1 className='text-3xl font-bold text-[rgb(22,57,90)]'>Generals</h1>
                     </div>
 
-                    <div className='flex flex-col justify-between w-full sm:px-10 gap-y-5 mt-5'>
+                    <form action='' onSubmit={next} className='flex flex-col justify-between w-full sm:px-10 gap-y-5 mt-5'>
                         <div className='flex flex-col sm:flex-row justify-between sm:items-center '>
                             <h1>Thermal</h1>
                             <div className='flex flex-col justify-between w-[80vw] sm:w-[40vw] border-2 border-solid border-[#16395A] rounded sm:rounded-xl'>
@@ -500,10 +498,11 @@ export default function Generals() {
                             <Button name="Next" class="rounded-lg hover:transform-none mt-5 w-full" click={next} />
                         </div>
 
-                    </div>
+                    </form>
                 </div>
-            </div>
-            {modal && popupMessage && <Popup text={popupMessage} />}
+            </div >
+            {modal && popupMessage && <Popup text={popupMessage} />
+            }
         </>
     )
 }

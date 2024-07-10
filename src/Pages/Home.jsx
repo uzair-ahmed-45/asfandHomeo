@@ -18,13 +18,9 @@ export default function () {
         const response = await get('/patient/list');
         const patients = response.data;
         setPatients(patients);
-        console.log(patients);
-        console.log(loggedInDoctor);
         const res = await get('/case/countTotalCases')
         const countTotalCases = res.data
-        console.log(countTotalCases);
         setTotalCases(countTotalCases)
-        console.log(totalCases);
       } catch (error) {
         console.log(error);
       }

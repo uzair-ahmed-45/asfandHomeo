@@ -35,16 +35,12 @@ export default function LabTest() {
         };
         try {
             const response = await put('/case/labTests', labTestObj);
-            console.log(response);
+            setloader(true);
             if (response) {
-                console.log(response.data);
                 setcomplainId(response.data.complain._id);
-                console.log(complainId);
-                setloader(true);
                 nav('/case/diagnosed')
             }
         } catch (error) {
-            console.log(error.response.data.message);
             if (error.response.data.message === 'Complain ID is required') {
                 setmodal(true);
                 setPopupMessage('Complain ID is required');

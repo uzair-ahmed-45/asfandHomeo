@@ -68,17 +68,15 @@ export default function PatientForm() {
     };
 
     const register = async (e) => {
-        // e.preventDefault();
+        e.preventDefault();
         if (validatePatient(patientobj)) {
             try {
                 const response = await post('/patient/register', patientobj)
+                setloader(true)
                 if (response.data) {
-                    console.log(response.data);
                     setPatientSuccess(true);
                     setpatientId(response.data._id);
-                    console.log(patientId);
                     nav("/case/chiefComplaint")
-                    setmodal(true);
                     setfullname('');
                     setage('');
                     setgender('');
@@ -88,7 +86,6 @@ export default function PatientForm() {
 
                 }
             } catch (err) {
-                console.log(err.response.data.message);
                 if (err.response.data.message == 'Patient already registered') {
                     setPopupMessage("Patient already registered")
                     setmodal(true)
@@ -107,7 +104,7 @@ export default function PatientForm() {
                 <>
                     <Navbar />
                     <div className="h-auto ms-3 py-20  bg-gray-200 sm:py-10 sm:ms-44 md:ms-48 lg:ms-80 w-[75.5vw] m-auto flex justify-between sm:justify-center flex-col sm:flex-row">
-                        <div className="px-5 py-5 mt-5 sm:mt-12 bg-white rounded-xl shadow-xl flex flex-col justify-center gap-y-5 w-[90vw] sm:w-[55vw] ">
+                        <form action='' onSubmit={register} className="px-5 py-5 mt-5 sm:mt-12 bg-white rounded-xl shadow-xl flex flex-col justify-center gap-y-5 w-[90vw] sm:w-[55vw] ">
                             <div className='flex items-center m-auto'>
                                 <img src="/patient.png" alt="" className='w-16 h-24' />
                                 <h1 className='text-3xl font-bold text-[rgb(22,57,90)]'>Register Patient</h1>
@@ -212,11 +209,12 @@ export default function PatientForm() {
                             <div>
                                 <Button name="Register" class="rounded-lg hover:scale-100" click={register} />
                             </div>
-                        </div>
+                        </form>
                     </div>
                     {popupMessage && modal && <Popup text={popupMessage} />}
                 </>
-            )}
+            )
+            }
         </>
     );
 }

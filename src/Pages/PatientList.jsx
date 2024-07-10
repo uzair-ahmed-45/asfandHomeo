@@ -8,9 +8,6 @@ import { useModal } from '../Hooks/useModal';
 import { get, post, put } from '../api';
 import Spinner from '../Components/Spinner';
 
-function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
-}
 
 export default function PatientList() {
     const [patients, setPatients] = useState([]);
@@ -33,7 +30,6 @@ export default function PatientList() {
                 const response = await get('/patient/list');
                 const patients = response.data;
                 setPatients(patients);
-                console.log(patients);
                 // Fetch total cases for each patient
                 const casesPromises = patients.map(patient => post('/case/totalCases', { patientid: patient._id }));
                 const casesResponses = await Promise.all(casesPromises)
@@ -43,10 +39,7 @@ export default function PatientList() {
                     return acc;
                 }, {});
                 setTotalCases(casesCount);
-                console.log(totalCases);
-
             } catch (error) {
-                console.error(error.response.data.message)
                 setmodal(true)
                 setPopupMessage(error.response?.data?.message || "An error occurred");
             }
@@ -75,7 +68,6 @@ export default function PatientList() {
         }
         setpatientId(patientid)
         nav('/case/chiefComplaint')
-        console.log(patientId);
     }
     const navtoCases = async (index) => {
         let patientid;
@@ -84,13 +76,10 @@ export default function PatientList() {
         } else {
             patientid = patients[index]._id
         }
-        console.log(patientid);
-        const response = await post('/case/patientCases', { patientid: patientid })
-        console.log(response.data);
-        setpatientCases(response.data)
-        console.log(patientCases);
-        nav('/patient/Cases')
         setloader(true)
+        const response = await post('/case/patientCases', { patientid: patientid })
+        setpatientCases(response.data)
+        nav('/patient/Cases')
     }
 
     const deletePatient = async (index) => {
@@ -98,14 +87,13 @@ export default function PatientList() {
             patientid: filteredPatient[index]._id
         }
         try {
+            setloader(true)
             const res = await put('/patient/delete', patienttoDelete)
             if (res) {
                 setmodal(true)
                 setPopupMessage("Patient Deleted Successfully")
-                console.log(res.data);
             }
         } catch (error) {
-            console.log(error);
             setmodal(true)
             setPopupMessage(error.response?.data?.message || "An error occurred");
         }
@@ -167,7 +155,7 @@ export default function PatientList() {
                                             </div>
 
                                         </div>
-                                    )) : 
+                                    )) :
                                     <div>
                                         <h1 className='text-center mt-5'>No Patients Found</h1>
                                     </div>

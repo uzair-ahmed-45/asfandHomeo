@@ -46,7 +46,8 @@ export default function Behavior() {
 
 
 
-    const next = async () => {
+    const next = async (e) => {
+        e.preventDefault()
         const BehaviorObject = {
             complainId,
             Behavior: behaviorData.Behavior.concat(behaviorData.BehaviorOther ? [behaviorData.BehaviorOther] : []).join(', '),
@@ -54,15 +55,12 @@ export default function Behavior() {
         };
         try {
             const response = await put("/case/behavoir", BehaviorObject)
+            setloader(true)
             if (response) {
-                console.log(response.data);
                 setcomplainId(response.data.complain._id)
-                console.log(complainId);
-                setloader(true)
                 navigation('/case/labTests')
             }
         } catch (error) {
-            console.log(error.response.data.message);
             if (error.response.data.message === "Complain ID is required") {
                 setmodal(true)
                 setPopupMessage("Complain ID is required")
@@ -85,7 +83,7 @@ export default function Behavior() {
                         <img src="/behavior.png" alt="" className='w-24 h-24' />
                         <h1 className='text-center text-lg sm:text-xl md:text-3xl font-bold text-[rgb(22,57,90)]'>Behavior</h1>
                     </div>
-                    <div className='flex flex-col justify-between w-full sm:px-10 gap-y-5 mt-5'>
+                    <form action='' className='flex flex-col justify-between w-full sm:px-10 gap-y-5 mt-5' onSubmit={next}>
                         <div className='border-2 border-solid border-[#16395A] rounded sm:rounded-lg'>
                             <div className='flex border-b-2 border-solid border-[#16395A]'>
                                 <div className='flex flex-col justify-center w-1/2 items-center border-r-2 border-solid border-[#16395A]  '>
@@ -117,10 +115,11 @@ export default function Behavior() {
                             <Button name="Next" class="rounded-lg hover:transform-none mt-5 w-full" click={next} />
                         </div>
 
-                    </div>
+                    </form>
                 </div>
-            </div>
-            {modal && popupMessage && <Popup text={popupMessage} />}
+            </div >
+            {modal && popupMessage && <Popup text={popupMessage} />
+            }
         </>
     )
 }

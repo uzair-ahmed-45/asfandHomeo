@@ -26,7 +26,8 @@ export default function Remedies() {
         newremedies[index] = value;
         setremediesData({ remedies: newremedies });
     };
-    const submit = async () => {
+    const submit = async (e) => {
+        e.preventDefault()
         const filteredremedies = remediesData.remedies.filter(remedies => remedies.trim() !== "")
         const remediesObj = {
             complainId,
@@ -34,16 +35,13 @@ export default function Remedies() {
         };
         try {
             const response = await put('/case/remedies', remediesObj);
-            console.log(response);
+            setloader(true);
             if (response) {
-                console.log(response.data);
                 setcomplain(response.data)
                 setremediesdone(true)
-                setloader(true);
                 setremediesModal(false)
             }
         } catch (error) {
-            console.log(error);
             if (error.response.data.message === 'Complain ID is required') {
                 setmodal(true);
                 setPopupMessage('Complain ID is required');
@@ -78,7 +76,7 @@ export default function Remedies() {
                                 </div>
                             </div>
                             {/* case report */}
-                            <div className='flex flex-col justify-between gap-y-5 w-[70vw] sm:w-full '>
+                            <form action='' onSubmit={submit} className='flex flex-col justify-between gap-y-5 w-[70vw] sm:w-full '>
                                 {/* Basic Info */}<h1 className='text-xl sm:px-10 font-bold text-[rgb(22,57,90)]'>Basic Info</h1>
                                 <div className='block'>
                                     <div className='grid  justify-between grid-cols-1 sm:text-base text-xs sm:grid-cols-2 grid-rows-2  sm:justify-center sm:w-full w-[80vw] sm:px-10  gap-5'>
@@ -396,7 +394,7 @@ export default function Remedies() {
                                 </>
                                     : null
                                 }
-                                {complain?.complain?.childhoodHistory ? <> 
+                                {complain?.complain?.childhoodHistory ? <>
                                     <h1 className='text-xl font-bold text-[rgb(22,57,90)] sm:px-10'>ChildHood History</h1>
                                     <div className='grid  justify-between grid-cols-1 sm:text-base text-xs grid-rows-1 sm:justify-center sm:w-full w-[80vw] sm:px-10  gap-5'>
                                         {
@@ -468,7 +466,7 @@ export default function Remedies() {
                                 }
                                 <div className='flex justify-center gap-x-5 mt-5'>
                                     <Button name="Back to home" class="sm:px-10 px-6 hover:transform-none sm:text-base text-xs" click={() => navigation('/home')} />
-                                    <Button name="Generate Report" class="sm:px-10 px-6 hover:transform-none sm:text-base text-xs" click={()=> navigation('/case/report')} />
+                                    <Button name="Generate Report" class="sm:px-10 px-6 hover:transform-none sm:text-base text-xs" click={() => navigation('/case/report')} />
                                 </div>
                                 {
                                     remediesModal &&
@@ -497,7 +495,7 @@ export default function Remedies() {
 
                                 }
 
-                            </div>
+                            </form>
                         </div>
                     </div>
                     {modal && popupMessage && <Popup text={popupMessage} />}

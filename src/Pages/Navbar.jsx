@@ -4,19 +4,29 @@ import Button from '../Components/Button'
 import MobNavlist from '../Components/MobNavlist'
 import { useNavigate } from 'react-router-dom'
 import { useModal } from '../Hooks/useModal'
+import { useCookies } from 'react-cookie'
+
 
 export default function Navbar() {
     const nav = useNavigate()
     const { modal, setmodal, verifyUser, setverifyUser, loader, setloader, loggedInDoctor, setLoggedInDoctor } = useModal()
+    const [, , removeCookie] = useCookies(['access_token', 'refresh_token']);
 
     const navigation = (path) => {
         nav(path)
     }
     function logout() {
-        localStorage.removeItem('loggedInDoctor', loggedInDoctor)
-        console.log(loggedInDoctor);
-        nav('/')
-        setloader(true)
+        // Remove tokens from cookies
+        removeCookie('access_token', { path: '/' });
+        removeCookie('refresh_token', { path: '/' });
+
+        // Clear any additional state or local storage
+        localStorage.removeItem('loggedInDoctor');
+        setLoggedInDoctor(null);
+
+        // Navigate to the login page
+        nav('/');
+        setloader(true);
     }
     return (
         <>

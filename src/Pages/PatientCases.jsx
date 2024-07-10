@@ -30,6 +30,7 @@ export default function PatientCases() {
         initialSlide: 0,
     };
     const pdfDownload = () => {
+        setloader(true)
         const input = pdfref.current;
         const pdf = new jspdf('p', 'mm', 'a4', true);
 

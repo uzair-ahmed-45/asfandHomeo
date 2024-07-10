@@ -24,13 +24,11 @@ export default function ChangePassword() {
         }
         try {
             const response = await post('/doctor/changePassword', changePasswordObj)
-            console.log(response);
             setmodal(true)
             setpopupMessage("Password Changed Successfully")
             setoldPassword('')
             setnewPassword('')
         } catch (error) {
-            console.log(error.response.data.message);
             if (error.response.data.message === "Invalid Old Password") {
                 setmodal(true)
                 setpopupMessage("Invalid Old Password")
@@ -49,9 +47,7 @@ export default function ChangePassword() {
         nav(path)
         setloader(true)
     }
-    useEffect(() => {
-        console.log(loggedInDoctor);
-    }, [loggedInDoctor])
+
 
     return (
         <>
@@ -60,7 +56,7 @@ export default function ChangePassword() {
                     <Navbar />
                     {
                         loggedInDoctor ?
-                            <div className='flex flex-col gap-y-5 justify-between w-[90vw] sm:w-[70vw] md:w-[70vw] lg:w-[60vw] md:ms-64 sm:ms-48 lg:ms-80 ms-5 xl:ms-[450px] bg-white mt-20 sm:mt-10 py-10 rounded-xl shadow-xl px-10'>
+                            <form action='' onSubmit={ChangePassword} className='flex flex-col gap-y-5 justify-between w-[90vw] sm:w-[70vw] md:w-[70vw] lg:w-[60vw] md:ms-64 sm:ms-48 lg:ms-80 ms-5 xl:ms-[450px] bg-white mt-20 sm:mt-10 py-10 rounded-xl shadow-xl px-10'>
                                 <div className='flex items-center gap-x-3'>
                                     <i class="fa-solid fa-arrow-left text-[20px] cursor-pointer text-[rgb(22,57,90)] hover:bg-[rgb(95,141,184)] px-2 py-2 rounded-full hover:transition-all hover:duration-500 hover:scale-110" onClick={() => navigation('/profile')}></i>
                                     <h1 className='text-lg font-bold text-[rgb(22,57,90)]'>Change Password</h1>
@@ -94,7 +90,7 @@ export default function ChangePassword() {
                                 <div className='flex justify-center '>
                                     <Button name="Done" class="rounded-lg hover:transform-none" click={changePassword} />
                                 </div>
-                            </div> :
+                            </form> :
                             <div className='flex flex-col gap-y-5 justify-center sm:justify-between items-center w-[90vw] sm:w-[70vw] md:w-[70vw] lg:w-[60vw] md:ms-64 sm:ms-48 lg:ms-80 ms-5 xl:ms-[450px] bg-white mt-20 sm:mt-10 py-10 rounded-xl shadow-xl px-5'>
                                 No Admin Found
                             </div>

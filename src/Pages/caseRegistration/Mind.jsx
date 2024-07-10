@@ -53,7 +53,8 @@ export default function Mind() {
         setloader(true)
     }
 
-    const next = async () => {
+    const next = async (e) => {
+        e.preventDefault()
         const mindObject = {
             complainId,
             familyRelation: mindData.familyRelation.concat(mindData.familyRelationOther ? [mindData.familyRelationOther] : []).join(', '),
@@ -65,15 +66,12 @@ export default function Mind() {
         };
         try {
             const response = await put("/case/mind", mindObject)
+            setloader(true)
             if (response) {
-                console.log(response.data);
                 setcomplainId(response.data.complain._id)
-                console.log(complainId);
                 nav('/case/nature')
-                setloader(true)
             }
         } catch (error) {
-            console.log(error.response.data.message);
             if (error.response.data.message === "Complain ID is required") {
                 setmodal(true)
                 setPopupMessage("Complain ID is required")
@@ -97,7 +95,7 @@ export default function Mind() {
                         <h1 className='text-3xl font-bold text-[rgb(22,57,90)]'>Mind</h1>
                     </div>
 
-                    <div className='flex flex-col justify-between w-full sm:px-10 gap-y-5 mt-5'>
+                    <form action='' onSubmit={next} className='flex flex-col justify-between w-full sm:px-10 gap-y-5 mt-5'>
                         <div className='flex flex-col sm:flex-row justify-between sm:items-center '>
                             <h1>Family Relation</h1>
                             <div className='flex flex-col justify-between w-[80vw] sm:w-[40vw] border-2 border-solid border-[#16395A] rounded sm:rounded-xl'>
@@ -246,10 +244,11 @@ export default function Mind() {
                         </div>
 
 
-                    </div>
+                    </form>
                 </div>
-            </div>
-            {modal && popupMessage && <Popup text={popupMessage} />}
+            </div >
+            {modal && popupMessage && <Popup text={popupMessage} />
+            }
         </>
     )
 }
