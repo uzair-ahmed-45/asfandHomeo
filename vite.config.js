@@ -15,8 +15,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
       manifest: {
-        name: 'Vite PWA Project',
-        short_name: 'Vite PWA Project',
+        name: 'HomeoPathy Case Taking',
+        short_name: 'HomeoPathy Case Taking',
         theme_color: '#ffffff',
         icons: [
           {
