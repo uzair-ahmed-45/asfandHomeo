@@ -56,10 +56,10 @@ export default function SignIn() {
       password: password,
     };
     if (validateDoctor(doctor)) {
-      setloader(true)
       try {
         const response = await post('/doctor/login', doctor)
         if (response) {
+          setloader(true)
           const doctor = response.data
           setLoggedInDoctor(doctor)
           navigate("/home");
