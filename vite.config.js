@@ -1,8 +1,7 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   server: {
     proxy: {
@@ -13,10 +12,15 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
+      includeAssets: ['favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
       manifest: {
         name: 'HomeoPathy Case Taking',
         short_name: 'HomeoPathy Case Taking',
+        start_url: '/',
+        display: 'standalone',
+        background_color: '#ffffff',
+        lang: 'en',
+        scope: '/',
         theme_color: '#ffffff',
         icons: [
           {
@@ -41,8 +45,8 @@ export default defineConfig({
             type: 'image/png',
             purpose: 'maskable'
           }
-        ],
-      },
+        ]
+      }
     })
-  ],
-})
+  ]
+});
