@@ -22,6 +22,7 @@ export default function () {
         const countTotalCases = res.data
         console.log(res.data);
         setTotalCases(countTotalCases)
+        console.log(totalCases);
       } catch (error) {
         console.log(error);
       }
@@ -60,7 +61,7 @@ export default function () {
               </div>
               <div className='bg-white w-[80vw] sm:py-20 py-10 rounded-xl  drop-shadow-[2px_2px_10px_rgb(22,57,90)]'>
                 <h1 className='text-2xl sm:text-3xl font-medium'>Total Cases</h1>
-                <div className='text-2xl sm:text-3xl  font-medium counter' >{totalCases}</div>
+                <div className='text-2xl sm:text-3xl  font-medium counter' data-target={totalCases}></div>
               </div>
             </div>
           </div>
