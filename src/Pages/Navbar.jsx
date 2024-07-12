@@ -32,10 +32,14 @@ export default function Navbar() {
         <>
             <div className='w-[25vw] hidden sm:block bg-[rgb(22,57,90)] h-full fixed top-0 left-0 right-0 '>
                 <div className=' text-white flex flex-col items-center justify-between gap-y-10 py-16'>
-                    <div className='flex flex-col items-center text-center'>
-                        <img src="/logo.png" className='w-20' alt="" />
-                        <h1 className='sm:text-sm md:text-md lg:text-lg text-[#fca517] font-bold'>HOMEOPPATHY CASE TAKING</h1>
-                        <p className='text-xs'>BY DR.ASFANDYAR</p>
+                    <div className='flex flex-col items-center text-center gap-y-3'>
+                        <div>
+                            <img src="/logo.png" className='w-20' alt="" />
+                        </div>
+                        <div>
+                            <h1 className='sm:text-sm md:text-md lg:text-lg text-[#fca517] font-bold'>HOMEOPPATHY CASE TAKING</h1>
+                            <p className='text-xs text-[#fca517] font-semibold'>BY DR.ASFANDYAR</p>
+                        </div>
                     </div>
                     <div>
                         <Navlist />
