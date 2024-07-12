@@ -20,6 +20,7 @@ export default function () {
         setPatients(patients);
         const res = await get('/case/countTotalCases')
         const countTotalCases = res.data
+        console.log(res.data);
         setTotalCases(countTotalCases)
       } catch (error) {
         console.log(error);
