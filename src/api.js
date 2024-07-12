@@ -4,7 +4,7 @@ import axios from 'axios';
 
 // Create an instance of axios with your base URL
 const instance = axios.create({
-    baseURL: 'https://verceldemo-five.vercel.app/api',
+    baseURL: 'http://localhost:5000/api',
     // You can also add headers or other configurations here if needed
 });
 

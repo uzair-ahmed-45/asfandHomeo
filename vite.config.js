@@ -5,7 +5,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 export default defineConfig({
   server: {
     proxy: {
-      '/api': 'https://verceldemo-five.vercel.app'
+      '/api': 'http://localhost:5000'
     }
   },
   plugins: [
