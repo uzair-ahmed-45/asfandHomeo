@@ -12,6 +12,7 @@ export default function Modalcontext({ children }) {
   const [complainId, setcomplainId] = useState(localStorage.getItem('complainId') || "");
   const [complain, setcomplain] = useState(JSON.parse(localStorage.getItem('complain')) || {});
   const [loggedInDoctor, setLoggedInDoctor] = useState(JSON.parse(localStorage.getItem('loggedInDoctor')) || {});
+  const [totalCases, settotalCases] = useState()
 
 
   useEffect(() => {
@@ -57,7 +58,7 @@ export default function Modalcontext({ children }) {
   return (
     <Modalpopup.Provider value={{
       modal, setmodal, verifyUser, setverifyUser, loader, setloader,
-      patientId, setpatientId, complainId, setcomplainId, loggedInDoctor, setLoggedInDoctor, complain, setcomplain, patientidForCase, setpatientidForCase, patientCases , setpatientCases
+      patientId, setpatientId, complainId, setcomplainId, loggedInDoctor, setLoggedInDoctor, complain, setcomplain, patientidForCase, setpatientidForCase, patientCases, setpatientCases, totalCases, settotalCases
     }}>
       {children}
     </Modalpopup.Provider>

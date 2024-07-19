@@ -7,9 +7,8 @@ import axios from 'axios'
 import { get, post } from "../api"
 
 export default function () {
-  const { verifyUser, setverifyUser, loader, setloader, loggedInDoctor, setLoggedInDoctor } = useModal()
+  const { verifyUser, setverifyUser, loader, setloader, loggedInDoctor, setLoggedInDoctor, totalCases, settotalCases } = useModal()
   const [totalpatients, settotalpatients] = useState([])
-  const [totalCases, setTotalCases] = useState(0)
   const [patients, setPatients] = useState([]);
 
   useEffect(() => {
@@ -20,8 +19,7 @@ export default function () {
         setPatients(patients);
         const res = await get('/case/countTotalCases')
         const countTotalCases = res.data
-        console.log(res.data);
-        setTotalCases(countTotalCases)
+        settotalCases(countTotalCases)
         console.log(totalCases);
       } catch (error) {
         console.log(error);
