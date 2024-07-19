@@ -1,6 +1,5 @@
 import React from 'react'
 import { useModal } from '../Hooks/useModal'
-import "./Popup.css"
 
 export default function Popup(props) {
     const { modal, setmodal } = useModal()
@@ -22,5 +21,5 @@ export default function Popup(props) {
             }
 
         </>
-    )
+    )   
 }
