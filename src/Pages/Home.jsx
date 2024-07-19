@@ -7,16 +7,16 @@ import axios from 'axios'
 import { get, post } from "../api"
 
 export default function () {
-  const { verifyUser, setverifyUser, loader, setloader, loggedInDoctor, setLoggedInDoctor, totalCases, settotalCases } = useModal()
+  const { loader, setloader, totalCases, settotalCases, patients, setpatients } = useModal()
   const [totalpatients, settotalpatients] = useState([])
-  const [patients, setPatients] = useState([]);
+
 
   useEffect(() => {
     const fetchtotalPatient = async () => {
       try {
         const response = await get('/patient/list');
         const patients = response.data;
-        setPatients(patients);
+        setpatients(patients);
         const res = await get('/case/countTotalCases')
         const countTotalCases = res.data
         settotalCases(countTotalCases)
