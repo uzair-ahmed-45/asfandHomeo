@@ -106,11 +106,11 @@ export default function Mind() {
                                     </div>
                                     <div className='flex flex-col justify-center w-1/4 items-center  border-r-2 border-solid border-[#16395A]'>
                                         <label htmlFor="Bad" className='border-b-2 border-solid border-[#16395A] w-full text-center sm:text-lg text-xs'>Bad</label>
-                                        <Inputs type="checkbox" value="cold" changeevent={(e) => handleChange(e, 'familyRelation')} class="w-[15vw] sm:w-[6vw] custom-checkbox hover:shadow-none hover:drop-shadow-none  rounded-none focus:outline-none px-2 py-0" />
+                                        <Inputs type="checkbox" value="Bad" changeevent={(e) => handleChange(e, 'familyRelation')} class="w-[15vw] sm:w-[6vw] custom-checkbox hover:shadow-none hover:drop-shadow-none  rounded-none focus:outline-none px-2 py-0" />
                                     </div>
                                     <div className='flex flex-col justify-center w-1/4 items-center  border-r-2 border-solid border-[#16395A]'>
                                         <label htmlFor="Normal" className='border-b-2 border-solid border-[#16395A] w-full text-center sm:text-lg text-xs'>Normal</label>
-                                        <Inputs type="checkbox" value="cold" changeevent={(e) => handleChange(e, 'familyRelation')} class="w-[15vw] sm:w-[6vw] custom-checkbox hover:shadow-none hover:drop-shadow-none  rounded-none focus:outline-none px-2 py-0" />
+                                        <Inputs type="checkbox" value="Normal" changeevent={(e) => handleChange(e, 'familyRelation')} class="w-[15vw] sm:w-[6vw] custom-checkbox hover:shadow-none hover:drop-shadow-none  rounded-none focus:outline-none px-2 py-0" />
                                     </div>
                                     <div className='flex flex-col justify-center w-1/4 items-center'>
                                         <label htmlFor="Other" className='border-b-2 border-solid border-[#16395A] w-full text-center sm:text-lg text-xs'>Other</label>
@@ -166,7 +166,7 @@ export default function Mind() {
                             </div>
                         </div>
                         <div className='flex flex-col sm:flex-row justify-between sm:items-center '>
-                            <h1>Mind</h1>
+                            <h1>Memory</h1>
                             <div className='flex flex-col justify-between w-[80vw] sm:w-[40vw] border-2 border-solid border-[#16395A] rounded sm:rounded-xl'>
                                 <div className='flex '>
                                     <div className='flex flex-col justify-center w-1/4 items-center border-r-2 border-solid border-[#16395A]'>
@@ -194,7 +194,7 @@ export default function Mind() {
                                 <div className='flex '>
                                     <div className='flex flex-col justify-center w-1/4 items-center border-r-2 border-solid border-[#16395A]'>
                                         <label htmlFor="Good" className='border-b-2 border-solid border-[#16395A] w-full text-center sm:text-lg text-xs'>Good</label>
-                                        <Inputs type="checkbox" value="Like" changeevent={(e) => handleChange(e, 'willPower')} class="w-[15vw] sm:w-[6vw] custom-checkbox hover:drop-shadow-none hover:shadow-none rounded-none focus:outline-none  py-0" />
+                                        <Inputs type="checkbox" value="Good" changeevent={(e) => handleChange(e, 'willPower')} class="w-[15vw] sm:w-[6vw] custom-checkbox hover:drop-shadow-none hover:shadow-none rounded-none focus:outline-none  py-0" />
                                     </div>
                                     <div className='flex flex-col justify-center w-1/4 items-center  border-r-2 border-solid border-[#16395A]'>
                                         <label htmlFor="Average" className='border-b-2 border-solid border-[#16395A] w-full text-center sm:text-lg text-xs'>Average</label>
@@ -221,7 +221,7 @@ export default function Mind() {
                                     </div>
                                     <div className='flex flex-col justify-center w-1/4 items-center border-b-2  border-r-2 border-solid border-[#16395A]'>
                                         <label htmlFor="Lesstalkative" className='border-b-2 border-solid border-[#16395A] w-full text-center sm:text-lg text-xs'>Lesstalkative</label>
-                                        <Inputs type="checkbox" value="Lesstalkative" cchangeevent={(e) => handleChange(e, 'personality')} class="w-[15vw] sm:w-[6vw] custom-checkbox hover:shadow-none hover:drop-shadow-none  rounded-none focus:outline-none px-2 py-0" />
+                                        <Inputs type="checkbox" value="Lesstalkative" changeevent={(e) => handleChange(e, 'personality')} class="w-[15vw] sm:w-[6vw] custom-checkbox hover:shadow-none hover:drop-shadow-none  rounded-none focus:outline-none px-2 py-0" />
                                     </div>
                                     <div className='flex flex-col justify-center w-1/4 items-center border-b-2 border-r-2 border-solid border-[#16395A]'>
                                         <label htmlFor="Extrovert" className='border-b-2 border-solid border-[#16395A] w-full text-center sm:text-lg text-xs'>Extrovert</label>
@@ -229,7 +229,7 @@ export default function Mind() {
                                     </div>
                                     <div className='flex flex-col justify-center w-1/4 items-center border-b-2 border-solid border-[#16395A] '>
                                         <label htmlFor="Introvert" className='border-b-2 border-solid border-[#16395A] w-full text-center sm:text-lg text-xs'>Introvert</label>
-                                        <Inputs type="checkbox" value="Introvert" cchangeevent={(e) => handleChange(e, 'personality')} class="w-[19vw] sm:w-[6vw]  custom-checkbox hover:shadow-none hover:drop-shadow-none  rounded-none focus:outline-none px-2 py-0" />
+                                        <Inputs type="checkbox" value="Introvert" changeevent={(e) => handleChange(e, 'personality')} class="w-[19vw] sm:w-[6vw]  custom-checkbox hover:shadow-none hover:drop-shadow-none  rounded-none focus:outline-none px-2 py-0" />
                                     </div>
                                 </div>
                                 <div className='flex flex-col justify-center items-center'>

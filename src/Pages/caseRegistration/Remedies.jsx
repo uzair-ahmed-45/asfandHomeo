@@ -38,6 +38,7 @@ export default function Remedies() {
             setloader(true);
             if (response) {
                 setcomplain(response.data)
+                console.log(response.data);
                 setremediesdone(true)
                 setremediesModal(false)
             }

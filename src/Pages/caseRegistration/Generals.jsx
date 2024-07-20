@@ -82,7 +82,7 @@ export default function Generals() {
             thirst: generalData.thirst.concat(generalData.thirstOther ? [generalData.thirstOther] : []).join(', '),
             urine: generalData.urine.concat(generalData.urineOther ? [generalData.urineOther] : []).join(', '),
             dream: generalData.dream.concat(generalData.dreamOther ? [generalData.dreamOther] : []).join(', '),
-            sleep: generalData.sleep.concat(generalData.sleepPosition ? [generalData.sleepPosition] : []).join(', '),
+            sleep: generalData.sleep.concat(generalData.sleepOther ? [generalData.sleepOther] : []).join(', '),
             sleepPosition: generalData.sleepPosition.concat(generalData.sleepPositionOther ? [generalData.sleepPositionOther] : []).join(', '),
             foodDesires: generalData.foodDesires.concat(generalData.foodDesiresOther ? [generalData.foodDesiresOther] : []).join(', '),
             stool: generalData.stool.concat(generalData.stoolOther ? [generalData.stoolOther] : []).join(', '),
@@ -96,6 +96,7 @@ export default function Generals() {
             if (response) {
                 setcomplainId(response.data.complain._id)
                 nav('/case/mind')
+
             }
         } catch (error) {
             if (error.response.data.message === "Complain ID is required") {
@@ -312,7 +313,7 @@ export default function Generals() {
                                     </div>
                                     <div className='flex flex-col justify-center w-1/4 items-center border-b-2  border-r-2 border-solid border-[#16395A]'>
                                         <label htmlFor="Profuse" className='border-b-2 border-solid border-[#16395A] w-full text-center sm:text-lg text-xs'>Profuse</label>
-                                        <Inputs type="checkbox" value="Profuse" cchangeevent={(e) => handleChange(e, 'urine')} class="w-[15vw] sm:w-[6vw] custom-checkbox hover:shadow-none hover:drop-shadow-none  rounded-none focus:outline-none px-2 py-0" />
+                                        <Inputs type="checkbox" value="Profuse" changeevent={(e) => handleChange(e, 'urine')} class="w-[15vw] sm:w-[6vw] custom-checkbox hover:shadow-none hover:drop-shadow-none  rounded-none focus:outline-none px-2 py-0" />
                                     </div>
                                     <div className='flex flex-col justify-center w-1/4 items-center border-b-2 border-r-2 border-solid border-[#16395A]'>
                                         <label htmlFor="Offensive" className='border-b-2 border-solid border-[#16395A] w-full text-center sm:text-lg text-xs'>Offensive</label>
@@ -320,7 +321,7 @@ export default function Generals() {
                                     </div>
                                     <div className='flex flex-col justify-center w-1/4 items-center border-b-2 border-solid border-[#16395A] '>
                                         <label htmlFor="Burning" className='border-b-2 border-solid border-[#16395A] w-full text-center sm:text-lg text-xs'>Burning</label>
-                                        <Inputs type="checkbox" value="Burning" cchangeevent={(e) => handleChange(e, 'urine')} class="w-[19vw] sm:w-[6vw]  custom-checkbox hover:shadow-none hover:drop-shadow-none  rounded-none focus:outline-none px-2 py-0" />
+                                        <Inputs type="checkbox" value="Burning" changeevent={(e) => handleChange(e, 'urine')} class="w-[19vw] sm:w-[6vw]  custom-checkbox hover:shadow-none hover:drop-shadow-none  rounded-none focus:outline-none px-2 py-0" />
                                     </div>
                                 </div>
                                 <div className='flex flex-col justify-center items-center'>
@@ -402,8 +403,8 @@ export default function Generals() {
                                 </div>
                                 <div className='flex'>
                                     <div className='flex flex-col justify-center w-1/3 items-center border-r-2 border-solid border-[#16395A] '>
-                                        <label htmlFor="Fruits" className='border-b-2 border-solid border-[#16395A] w-full text-center sm:text-lg text-xs'>Fruits</label>
-                                        <Inputs type="checkbox" value="Fruits" changeevent={(e) => handleChange(e, 'foodDesires')} class="w-[19vw] sm:w-[6vw]  custom-checkbox hover:shadow-none hover:drop-shadow-none  rounded-none focus:outline-none px-2 py-0" />
+                                        <label htmlFor="Biter" className='border-b-2 border-solid border-[#16395A] w-full text-center sm:text-lg text-xs'>Biter</label>
+                                        <Inputs type="checkbox" value="Biter" changeevent={(e) => handleChange(e, 'foodDesires')} class="w-[19vw] sm:w-[6vw]  custom-checkbox hover:shadow-none hover:drop-shadow-none  rounded-none focus:outline-none px-2 py-0" />
                                     </div>
                                     <div className='flex flex-col justify-center items-center'>
                                         <label htmlFor="Other" className='border-b-2 border-solid border-[#16395A] w-full text-center sm:text-lg text-xs'>Other</label>
@@ -427,7 +428,7 @@ export default function Generals() {
                                     </div>
                                     <div className='flex flex-col justify-center w-1/4 items-center border-b-2 border-r-2 border-solid border-[#16395A]'>
                                         <label htmlFor="Profuse" className='border-b-2 border-solid border-[#16395A] w-full text-center sm:text-lg text-xs'>Profuse</label>
-                                        <Inputs type="checkbox" value="Profuse" cchangeevent={(e) => handleChange(e, 'stool')} class="w-[19vw] sm:w-[6vw]  custom-checkbox hover:shadow-none hover:drop-shadow-none  rounded-none focus:outline-none px-2 py-0" />
+                                        <Inputs type="checkbox" value="Profuse" changeevent={(e) => handleChange(e, 'stool')} class="w-[19vw] sm:w-[6vw]  custom-checkbox hover:shadow-none hover:drop-shadow-none  rounded-none focus:outline-none px-2 py-0" />
                                     </div>
                                     <div className='flex flex-col justify-center w-1/4 items-center border-b-2 border-solid border-[#16395A] '>
                                         <label htmlFor="Offensive" className='border-b-2 border-solid border-[#16395A] w-full text-center sm:text-lg text-xs'>Offensive</label>
@@ -441,7 +442,7 @@ export default function Generals() {
                                     </div>
                                     <div className='flex flex-col justify-center w-1/4 items-center border-r-2 border-solid border-[#16395A] '>
                                         <label htmlFor="Burning" className='border-b-2 border-solid border-[#16395A] w-full text-center sm:text-lg text-xs'>Burning</label>
-                                        <Inputs type="checkbox" value="Burning" cchangeevent={(e) => handleChange(e, 'stool')} class="w-[19vw] sm:w-[6vw]  custom-checkbox hover:shadow-none hover:drop-shadow-none  rounded-none focus:outline-none px-2 py-0" />
+                                        <Inputs type="checkbox" value="Burning" changeevent={(e) => handleChange(e, 'stool')} class="w-[19vw] sm:w-[6vw]  custom-checkbox hover:shadow-none hover:drop-shadow-none  rounded-none focus:outline-none px-2 py-0" />
                                     </div>
                                     <div className='flex flex-col justify-center w-1/4 items-center border-r-2 border-solid border-[#16395A] '>
                                         <label htmlFor="Normal" className='border-b-2 border-solid border-[#16395A] w-full text-center sm:text-lg text-xs'>Normal</label>

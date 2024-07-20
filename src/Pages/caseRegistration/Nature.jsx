@@ -20,7 +20,7 @@ export default function Nature() {
 
     const [mindData, setmindData] = useState({
         nature: [],
-        naureOther: "",
+        natureOther: "",
         anxiety: [],
         anxietyOther: "",
 
@@ -52,7 +52,7 @@ export default function Nature() {
         e.preventDefault()
         const natureObject = {
             complainId,
-            nature: mindData.nature.concat(mindData.naureOther ? [mindData.naureOther] : []).join(', '),
+            nature: mindData.nature.concat(mindData.natureOther ? [mindData.natureOther] : []).join(', '),
             anxiety: mindData.anxiety.concat(mindData.anxietyOther ? [mindData.anxietyOther] : []).join(', '),
 
         };
@@ -158,7 +158,7 @@ export default function Nature() {
                                     <div className='border-b-2 border-solid border-[#16395A] w-full'>
                                         <label htmlFor="Others" className='  sm:text-lg text-xs ms-2'>Others</label>
                                     </div>
-                                    <Inputs type="text" placeholder="Type Others here" changeevent={(e) => handleChange(e, 'nature')} class="w-[50vw] sm:w-[30vw] hover:shadow-none hover:drop-shadow-none  rounded-none focus:outline-none px-2 py-0 h-2 mt-[7px] text-[12px] sm:text-[15px]" />
+                                    <Inputs type="text" placeholder="Type Others here" changeevent={(e) => handleChange(e, 'anxiety')} class="w-[50vw] sm:w-[30vw] hover:shadow-none hover:drop-shadow-none  rounded-none focus:outline-none px-2 py-0 h-2 mt-[7px] text-[12px] sm:text-[15px]" />
                                 </div>
                             </div>
                         </div>
