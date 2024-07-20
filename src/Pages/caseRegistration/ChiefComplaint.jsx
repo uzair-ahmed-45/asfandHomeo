@@ -12,6 +12,7 @@ import Popup from '../../Components/Popup'
 
 export default function ChiefComplaint() {
     const [formData, setFormData] = useState({
+        chiefComplain: "",
         whenStarted: "",
         locationAndSide: "",
         sensation: "",
@@ -26,7 +27,9 @@ export default function ChiefComplaint() {
     const validatePatient = (data) => {
         const newErrors = {};
         let isValid = true;
-
+        if (!data.chiefComplain) {
+            newErrors.chiefComplain = 'chief Complain is required';
+        }
         if (!data.whenStarted) {
             newErrors.whenStarted = 'When started is required';
         }
@@ -65,6 +68,7 @@ export default function ChiefComplaint() {
         e.preventDefault()
         const chiefComplaint = {
             patientid: patientId,
+            chiefComplain: formData.chiefComplain,
             StartDate: formData.whenStarted,
             Location: formData.locationAndSide,
             Sensation: formData.sensation,
@@ -105,6 +109,11 @@ export default function ChiefComplaint() {
                                 <h1 className='text-3xl font-bold text-[rgb(22,57,90)]'>Chief Complaint</h1>
                             </div>
                             <form action='' onSubmit={next} className='flex flex-col justify-between w-full sm:px-10 gap-y-5 mt-5'>
+                                <div className='flex flex-col sm:flex-row justify-between sm:items-center '>
+                                    <label htmlFor="chiefComplain" className=''>Chief Complain</label>
+                                    <Inputs type="text" name="chiefComplain" value={formData.chiefComplain} changeevent={handleInputChange} class="border-b-2 border-solid border-[rgb(22,57,90)] hover:drop-shadow-none hover:shadow-none rounded-none focus:outline-none px-2 py-0 w-[80vw] sm:w-[40vw]" />
+                                </div>
+                                {errors.chiefComplain && <p className="text-red-500 text-xs">{errors.chiefComplain}</p>}
                                 <div className='flex flex-col sm:flex-row justify-between sm:items-center '>
                                     <label htmlFor="whenStarted" className=''>When Started</label>
                                     <Inputs type="text" name="whenStarted" value={formData.whenStarted} changeevent={handleInputChange} class="border-b-2 border-solid border-[rgb(22,57,90)] hover:drop-shadow-none hover:shadow-none rounded-none focus:outline-none px-2 py-0 w-[80vw] sm:w-[40vw]" />
