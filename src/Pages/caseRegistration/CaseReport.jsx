@@ -236,19 +236,19 @@ export default function CaseReport() {
                                         {
                                             complain?.complain?.generals?.foodDesires ? <div className='flex gap-x-5 items-center'>
                                                 <h1 className='text-sm text-[rgb(22,57,90)]'>Food Desires:</h1>
-                                                <h1 className='ms-8'>{complain?.complain?.generals?.foodDesires || null}</h1>
+                                                <h1 className='ms-12'>{complain?.complain?.generals?.foodDesires || null}</h1>
                                             </div> : null
                                         }
                                         {
                                             complain?.complain?.generals?.sleepPosition ? <div className='flex gap-x-5 items-center'>
                                                 <h1 className='text-sm text-[rgb(22,57,90)]'>Sleep Position:</h1>
-                                                <h1 className='ms-6'>{complain?.complain?.generals?.sleepPosition || null}</h1>
+                                                <h1 className='ms-7'>{complain?.complain?.generals?.sleepPosition || null}</h1>
                                             </div> : null
                                         }
                                         {
                                             complain?.complain?.generals?.stool ? <div className='flex gap-x-5 items-center'>
                                                 <h1 className='text-sm text-[rgb(22,57,90)]'>Stool:</h1>
-                                                <h1 className='ms-20'>{complain?.complain?.generals?.stool || null}</h1>
+                                                <h1 className='ms-[82px]'>{complain?.complain?.generals?.stool || null}</h1>
                                             </div> : null
                                         }
                                         {
