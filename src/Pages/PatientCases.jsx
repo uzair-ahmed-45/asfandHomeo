@@ -115,6 +115,12 @@ export default function PatientCases() {
                                                     <h1 className='text-xl font-bold text-[rgb(22,57,90)] sm:px-10'>Chief Complaint</h1>
                                                     <div className='grid  justify-between grid-cols-1 sm:text-base text-xs sm:grid-cols-2 grid-rows-2  sm:justify-center sm:w-full w-[80vw] sm:px-10  gap-5'>
                                                         {
+                                                            item?.chiefComplaint?.chiefComplain ? <div className='flex gap-x-5 items-center'>
+                                                                <h1 className='text-sm text-[rgb(22,57,90)]'>Chief Complain:</h1>
+                                                                <h1 className='ms-5'>{item?.chiefComplaint?.chiefComplain || null}</h1>
+                                                            </div> : null
+                                                        }
+                                                        {
                                                             item?.chiefComplaint?.StartDate ? <div className='flex gap-x-5 items-center'>
                                                                 <h1 className='text-sm text-[rgb(22,57,90)]'>When Started:</h1>
                                                                 <h1 className='ms-8'>{item?.chiefComplaint?.StartDate || null}</h1>
