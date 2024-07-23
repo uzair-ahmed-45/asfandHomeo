@@ -1,6 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { post } from '../api';
-import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useModal } from '../Hooks/useModal';
