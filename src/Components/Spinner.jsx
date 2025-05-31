@@ -7,14 +7,14 @@ export default function Spinner() {
   const { loader, setloader } = useModal();
   const [color, setColor] = useState("rgb(22,57,90)");
 
-  useEffect(() => {
-    setloader(true);
-    if (loader) {
-      setTimeout(() => {
-        setloader(false);
-      }, 1000);
-    }
-  }, [loader, setloader]);
+  // useEffect(() => {
+  //   setloader(true);
+  //   if (loader) {
+  //     setTimeout(() => {
+  //       setloader(false);
+  //     }, 1000);
+  //   }
+  // }, [loader, setloader]);
   const override = {
     display: "block",
     margin: "0 auto",

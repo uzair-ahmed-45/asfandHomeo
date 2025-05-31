@@ -11,11 +11,11 @@ import { useNavigate } from 'react-router-dom'
 export default function Behavior() {
     const [popupMessage, setPopupMessage] = useState('');
     const { modal, setmodal, loader, setloader, complainId, setcomplainId } = useModal();
+    const [loading, setLoading] = useState(false)
     const nav = useNavigate()
 
     const navigation = (path) => {
         nav(path)
-        setloader(true)
     }
 
     const [behaviorData, setbehaviorData] = useState({
@@ -54,8 +54,8 @@ export default function Behavior() {
 
         };
         try {
+            setLoading(true)
             const response = await put("/case/behavoir", BehaviorObject)
-            setloader(true)
             if (response) {
                 setcomplainId(response.data.complain._id)
                 navigation('/case/labTests')
@@ -71,6 +71,8 @@ export default function Behavior() {
                 setmodal(true)
                 setPopupMessage("Something went wrong")
             }
+        }finally{
+            setLoading(false)
         }
     }
 
@@ -112,7 +114,7 @@ export default function Behavior() {
                         </div>
                         <div className='flex justify-center gap-x-5'>
                             <Button name="Skip" class="rounded-lg hover:transform-none mt-5 w-full" click={() => navigation('/case/labTests')} />
-                            <Button name="Next" class="rounded-lg hover:transform-none mt-5 w-full" click={next} />
+                            <Button name="Next" isLoading={loading} class="rounded-lg hover:transform-none mt-5 w-full" click={next} />
                         </div>
 
                     </form>

@@ -16,6 +16,7 @@ export default function PatientForm() {
     const [contact, setcontact] = useState();
     const [occupation, setoccupation] = useState();
     const [address, setaddress] = useState();
+    const [loading, setLoading] = useState(false)
     const [errors, setErrors] = useState({});
     const [popupMessage, setPopupMessage] = useState('');
     const { modal, setmodal, loader, setloader, patientId, setpatientId } = useModal();
@@ -71,8 +72,8 @@ export default function PatientForm() {
         e.preventDefault();
         if (validatePatient(patientobj)) {
             try {
+                setLoading(true)
                 const response = await post('/patient/register', patientobj)
-                setloader(true)
                 if (response.data) {
                     setPatientSuccess(true);
                     setpatientId(response.data._id);
@@ -91,6 +92,8 @@ export default function PatientForm() {
                     setmodal(true)
 
                 }
+            } finally {
+                setLoading(falsae)
             }
         }
 
@@ -98,123 +101,117 @@ export default function PatientForm() {
 
     return (
         <>
-            {loader ? (
-                <Spinner />
-            ) : (
-                <>
-                    <Navbar />
-                    <div className="h-auto ms-3 py-20  bg-gray-200 sm:py-10 sm:ms-44 md:ms-48 lg:ms-80 w-[75.5vw] m-auto flex justify-between sm:justify-center flex-col sm:flex-row">
-                        <form action='' onSubmit={register} className="px-5 py-5 mt-5 sm:mt-12 bg-white rounded-xl shadow-xl flex flex-col justify-center gap-y-5 w-[90vw] sm:w-[55vw] ">
-                            <div className='flex items-center m-auto'>
-                                <img src="/patient.png" alt="" className='w-16 h-24' />
-                                <h1 className='text-3xl font-bold text-[rgb(22,57,90)]'>Register Patient</h1>
-                            </div>
-                            <div className="flex justify-between items-center gap-x-2 sm:gap-x-5">
-
-                                <label htmlFor="fullname" className="sm:text-sm md:text-lg text-xs">
-                                    Full Name
-                                </label>
-                                <div>
-                                    <Inputs
-                                        type="text"
-                                        placeholder="Full Name"
-                                        name="fullname"
-                                        value={fullname}
-                                        class="px-4 py-2 bg-gray-200 rounded-lg w-[60vw] sm:w-[40vw]"
-                                        changeevent={(e) => setfullname(e.target.value)}
-                                    />
-                                    {errors.fullname && <p className="text-red-500 text-xs">{errors.fullname}</p>}
-                                </div>
-                            </div>
-                            <div className="flex justify-between items-center gap-x-2 sm:gap-x-5">
-                                <label htmlFor="age" className="sm:text-sm md:text-lg text-xs">
-                                    Age
-                                </label>
-                                <div>
-                                    <Inputs
-                                        type="text"
-                                        placeholder="Age"
-                                        name="age"
-                                        value={age}
-                                        class="px-4 py-2 bg-gray-200 rounded-lg w-[60vw] sm:w-[40vw]"
-                                        changeevent={(e) => setage(e.target.value)}
-                                    />
-                                    {errors.age && <p className="text-red-500 text-xs">{errors.age}</p>}
-                                </div>
-                            </div>
-                            <div className="flex justify-between items-center gap-x-2 sm:gap-x-5">
-                                <label htmlFor="gender" className="sm:text-sm md:text-lg text-xs">
-                                    Gender
-                                </label>
-                                <div>
-                                    <Inputs
-                                        type="text"
-                                        placeholder="Gender"
-                                        name="gender"
-                                        value={gender}
-                                        class="px-4 py-2 bg-gray-200 rounded-lg w-[60vw] sm:w-[40vw]"
-                                        changeevent={(e) => setgender(e.target.value)}
-                                    />
-                                    {errors.gender && <p className="text-red-500 text-xs">{errors.gender}</p>}
-                                </div>
-                            </div>
-                            <div className="flex justify-between items-center gap-x-2 sm:gap-x-5 relative">
-                                <label htmlFor="contact" className="sm:text-sm md:text-lg text-xs">
-                                    Contact Number
-                                </label>
-                                <div>
-                                    <Inputs
-                                        type="text"
-                                        placeholder="Contact Number"
-                                        name="contact"
-                                        value={contact}
-                                        class="px-4 py-2 bg-gray-200 rounded-lg w-[60vw] sm:w-[40vw]"
-                                        changeevent={(e) => setcontact(e.target.value)}
-                                    />
-                                    {errors.contact && <p className="text-red-500 text-xs">{errors.contact}</p>}
-                                </div>
-                            </div>
-                            <div className="flex justify-between items-center gap-x-1 md:gap-x-2 sm:gap-x-2">
-                                <label htmlFor="occupation" className="sm:text-sm md:text-lg text-[10px]">
-                                    Occupation
-                                </label>
-                                <div>
-                                    <Inputs
-                                        type="text"
-                                        placeholder="Occupation"
-                                        name="occupation"
-                                        value={occupation}
-                                        class="px-4 py-2 bg-gray-200 rounded-lg w-[60vw] sm:w-[40vw]"
-                                        changeevent={(e) => setoccupation(e.target.value)}
-                                    />
-                                    {errors.occupation && <p className="text-red-500 text-xs">{errors.occupation}</p>}
-                                </div>
-                            </div>
-                            <div className="flex justify-between items-center gap-x-2 sm:gap-x-5">
-                                <label htmlFor="address" className="sm:text-sm md:text-lg text-xs">
-                                    Address
-                                </label>
-                                <div>
-                                    <Inputs
-                                        type="text"
-                                        placeholder="Address"
-                                        name="address"
-                                        value={address}
-                                        class="px-4 py-2 bg-gray-200 rounded-lg w-[60vw] sm:w-[40vw]"
-                                        changeevent={(e) => setaddress(e.target.value)}
-                                    />
-                                    {errors.address && <p className="text-red-500 text-xs">{errors.address}</p>}
-                                </div>
-                            </div>
-                            <div>
-                                <Button name="Register" class="rounded-lg hover:scale-100" click={register} />
-                            </div>
-                        </form>
+            <Navbar />
+            <div className="h-auto ms-3 py-20  bg-gray-200 sm:py-10 sm:ms-44 md:ms-48 lg:ms-80 w-[75.5vw] m-auto flex justify-between sm:justify-center flex-col sm:flex-row">
+                <form action='' onSubmit={register} className="px-5 py-5 mt-5 sm:mt-12 bg-white rounded-xl shadow-xl flex flex-col justify-center gap-y-5 w-[90vw] sm:w-[55vw] ">
+                    <div className='flex items-center m-auto'>
+                        <img src="/patient.png" alt="" className='w-16 h-24' />
+                        <h1 className='text-3xl font-bold text-[rgb(22,57,90)]'>Register Patient</h1>
                     </div>
-                    {popupMessage && modal && <Popup text={popupMessage} />}
-                </>
-            )
-            }
+                    <div className="flex justify-between items-center gap-x-2 sm:gap-x-5">
+
+                        <label htmlFor="fullname" className="sm:text-sm md:text-lg text-xs">
+                            Full Name
+                        </label>
+                        <div>
+                            <Inputs
+                                type="text"
+                                placeholder="Full Name"
+                                name="fullname"
+                                value={fullname}
+                                class="px-4 py-2 bg-gray-200 rounded-lg w-[60vw] sm:w-[40vw]"
+                                changeevent={(e) => setfullname(e.target.value)}
+                            />
+                            {errors.fullname && <p className="text-red-500 text-xs">{errors.fullname}</p>}
+                        </div>
+                    </div>
+                    <div className="flex justify-between items-center gap-x-2 sm:gap-x-5">
+                        <label htmlFor="age" className="sm:text-sm md:text-lg text-xs">
+                            Age
+                        </label>
+                        <div>
+                            <Inputs
+                                type="text"
+                                placeholder="Age"
+                                name="age"
+                                value={age}
+                                class="px-4 py-2 bg-gray-200 rounded-lg w-[60vw] sm:w-[40vw]"
+                                changeevent={(e) => setage(e.target.value)}
+                            />
+                            {errors.age && <p className="text-red-500 text-xs">{errors.age}</p>}
+                        </div>
+                    </div>
+                    <div className="flex justify-between items-center gap-x-2 sm:gap-x-5">
+                        <label htmlFor="gender" className="sm:text-sm md:text-lg text-xs">
+                            Gender
+                        </label>
+                        <div>
+                            <Inputs
+                                type="text"
+                                placeholder="Gender"
+                                name="gender"
+                                value={gender}
+                                class="px-4 py-2 bg-gray-200 rounded-lg w-[60vw] sm:w-[40vw]"
+                                changeevent={(e) => setgender(e.target.value)}
+                            />
+                            {errors.gender && <p className="text-red-500 text-xs">{errors.gender}</p>}
+                        </div>
+                    </div>
+                    <div className="flex justify-between items-center gap-x-2 sm:gap-x-5 relative">
+                        <label htmlFor="contact" className="sm:text-sm md:text-lg text-xs">
+                            Contact Number
+                        </label>
+                        <div>
+                            <Inputs
+                                type="text"
+                                placeholder="Contact Number"
+                                name="contact"
+                                value={contact}
+                                class="px-4 py-2 bg-gray-200 rounded-lg w-[60vw] sm:w-[40vw]"
+                                changeevent={(e) => setcontact(e.target.value)}
+                            />
+                            {errors.contact && <p className="text-red-500 text-xs">{errors.contact}</p>}
+                        </div>
+                    </div>
+                    <div className="flex justify-between items-center gap-x-1 md:gap-x-2 sm:gap-x-2">
+                        <label htmlFor="occupation" className="sm:text-sm md:text-lg text-[10px]">
+                            Occupation
+                        </label>
+                        <div>
+                            <Inputs
+                                type="text"
+                                placeholder="Occupation"
+                                name="occupation"
+                                value={occupation}
+                                class="px-4 py-2 bg-gray-200 rounded-lg w-[60vw] sm:w-[40vw]"
+                                changeevent={(e) => setoccupation(e.target.value)}
+                            />
+                            {errors.occupation && <p className="text-red-500 text-xs">{errors.occupation}</p>}
+                        </div>
+                    </div>
+                    <div className="flex justify-between items-center gap-x-2 sm:gap-x-5">
+                        <label htmlFor="address" className="sm:text-sm md:text-lg text-xs">
+                            Address
+                        </label>
+                        <div>
+                            <Inputs
+                                type="text"
+                                placeholder="Address"
+                                name="address"
+                                value={address}
+                                class="px-4 py-2 bg-gray-200 rounded-lg w-[60vw] sm:w-[40vw]"
+                                changeevent={(e) => setaddress(e.target.value)}
+                            />
+                            {errors.address && <p className="text-red-500 text-xs">{errors.address}</p>}
+                        </div>
+                    </div>
+                    <div>
+                        <Button isLoading={loading} name="Register" class="rounded-lg hover:scale-100" click={register} />
+                    </div>
+                </form>
+            </div>
+            {popupMessage && modal && <Popup text={popupMessage} />}
         </>
+
     );
 }

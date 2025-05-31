@@ -12,10 +12,10 @@ export default function Childhood() {
     const [popupMessage, setPopupMessage] = useState('');
     const { modal, setmodal, loader, setloader, complainId, setcomplainId } = useModal();
     const nav = useNavigate()
+    const [loading, setLoading] = useState(false)
 
     const navigation = (path) => {
         nav(path)
-        setloader(true)
     }
 
     const [childHoodData, setchildHoodData] = useState({
@@ -54,8 +54,8 @@ export default function Childhood() {
 
         };
         try {
+            setLoading(true)
             const response = await put("/case/childHoodHistory", childHoodObject)
-            setloader(true)
             if (response) {
                 setcomplainId(response.data.complain._id)
                 nav('/case/behavior')
@@ -71,6 +71,8 @@ export default function Childhood() {
                 setmodal(true)
                 setPopupMessage("Something went wrong")
             }
+        }finally{
+            setLoading(false)
         }
     }
 
@@ -112,7 +114,7 @@ export default function Childhood() {
                         </div>
                         <div className='flex justify-center gap-x-5'>
                             <Button name="Skip" class="rounded-lg hover:transform-none mt-5 w-full" click={() => navigation('/case/behavior')} />
-                            <Button name="Next" class="rounded-lg hover:transform-none mt-5 w-full" click={next} />
+                            <Button name="Next" isLoading={loading} class="rounded-lg hover:transform-none mt-5 w-full" click={next} />
                         </div>
 
                     </form>

@@ -29,43 +29,36 @@ import ChangePassword from './Pages/ChangePassword';
 
 function App() {
   const { modal, setmodal, verifyUser, setverifyUser, loader, setloader } = useModal()
-  useEffect(() => {
-    setloader(true)
-  }, [])
 
   return (
     <>
-      {loader ? <Spinner /> : <>
-        <Router>
-          <div className='bg-gray-200 h-auto'>
-            <Routes>
-              <Route path="/" element={<SignIn />} />
-              <Route path="/profile" element={<DoctorProfie />} />
-              <Route path="/profile/changePassword" element={<ChangePassword />} />
-              <Route path="/home" element={<Home />} />
-              {/* <Route path="/Signup" element={<Signup />} /> */}
-              <Route path="/case/patientform" element={<Patientform />} />
-              <Route path="/patients" element={<PatientList />} />
-              <Route path="/newcase" element={<NewCase />} />
-              <Route path="/case/chiefComplaint" element={<ChiefComplaint />} />
-              <Route path="/case/generals" element={<Generals />} />
-              <Route path="/case/mind" element={<Mind />} />
-              <Route path="/case/nature" element={<Nature />} />
-              <Route path="/case/pastHistory" element={<Pasthistory />} />
-              <Route path="/case/gyaneHistory" element={<GyaneHistory />} />
-              <Route path="/case/childHoodHistory" element={<Childhood />} />
-              <Route path="/case/behavior" element={<Behavior />} />
-              <Route path="/case/labTests" element={<LabTest />} />
-              <Route path="/case/diagnosed" element={<Diagnosed />} />
-              <Route path="/case/remedies" element={<Remedies />} />
-              <Route path="/case/report" element={<CaseReport />} />
-              <Route path="/patient/Cases" element={<PatientCases />} />
-            </Routes>
-          </div>
-        </Router>
-
-      </>
-      }
+      <Router>
+        <div className='bg-gray-200 h-auto'>
+          <Routes>
+            <Route path="/" element={<SignIn />} />
+            <Route path="/profile" element={<DoctorProfie />} />
+            <Route path="/profile/changePassword" element={<ChangePassword />} />
+            <Route path="/home" element={<Home />} />
+            {/* <Route path="/Signup" element={<Signup />} /> */}
+            <Route path="/case/patientform" element={<Patientform />} />
+            <Route path="/patients" element={<PatientList />} />
+            <Route path="/newcase" element={<NewCase />} />
+            <Route path="/case/chiefComplaint" element={<ChiefComplaint />} />
+            <Route path="/case/generals" element={<Generals />} />
+            <Route path="/case/mind" element={<Mind />} />
+            <Route path="/case/nature" element={<Nature />} />
+            <Route path="/case/pastHistory" element={<Pasthistory />} />
+            <Route path="/case/gyaneHistory" element={<GyaneHistory />} />
+            <Route path="/case/childHoodHistory" element={<Childhood />} />
+            <Route path="/case/behavior" element={<Behavior />} />
+            <Route path="/case/labTests" element={<LabTest />} />
+            <Route path="/case/diagnosed" element={<Diagnosed />} />
+            <Route path="/case/remedies" element={<Remedies />} />
+            <Route path="/case/report" element={<CaseReport />} />
+            <Route path="/patient/Cases" element={<PatientCases />} />
+          </Routes>
+        </div>
+      </Router>
 
     </>
   );

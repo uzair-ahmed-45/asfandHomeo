@@ -16,7 +16,6 @@ export default function PatientCases() {
 
     const navigation = (path) => {
         nav(path)
-        setloader(true)
     }
 
     var settings = {
@@ -28,26 +27,68 @@ export default function PatientCases() {
         initialSlide: 0,
     };
     const pdfDownload = () => {
-        setloader(true)
         const input = pdfref.current;
         const pdf = new jspdf('p', 'mm', 'a4', true);
 
-        // Set the desired width and height for the PDF
         const pdfWidth = pdf.internal.pageSize.getWidth();
         const pdfHeight = pdf.internal.pageSize.getHeight();
 
-        html2canvas(input, { scale: 1 }).then((canvas) => {
-            const imgData = canvas.toDataURL('image/png');
+        // Improve quality with better scale and options
+        html2canvas(input, {
+            scale: 2.5, // Increased scale for better quality
+            useCORS: true,
+            logging: false,
+            letterRendering: true,
+            allowTaint: true,
+            imageTimeout: 0,
+            removeContainer: true,
+            backgroundColor: '#ffffff',
+            onclone: function (clonedDoc) {
+                // Remove buttons from the clone before rendering
+                const buttons = clonedDoc.getElementsByTagName('button');
+                const buttonContainers = clonedDoc.querySelectorAll('.flex.justify-center.gap-x-5.mt-5');
+                buttonContainers.forEach(container => container.remove());
+                while (buttons.length > 0) {
+                    buttons[0].remove();
+                }
+            }
+        }).then((canvas) => {
+            const imgData = canvas.toDataURL('image/png', 1.0); // Max quality
             const imgWidth = canvas.width;
             const imgHeight = canvas.height;
 
-            let imgY = 0; // Initial Y position for the image
+            // Calculate dimensions while maintaining aspect ratio
+            const pageAspectRatio = pdfHeight / pdfWidth;
+            const imageAspectRatio = imgHeight / imgWidth;
 
-            // Calculate the ratio for resizing the image to fit the page
-            const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+            let finalWidth = pdfWidth - 20; // 10mm margins on each side
+            let finalHeight;
 
-            // Add the image to the PDF
-            pdf.addImage(imgData, 'PNG', 0, imgY, imgWidth * ratio, imgHeight * ratio);
+            if (pageAspectRatio > imageAspectRatio) {
+                finalHeight = finalWidth * imageAspectRatio;
+            } else {
+                finalHeight = pdfHeight - 20; // 10mm margins on top and bottom
+                finalWidth = finalHeight / imageAspectRatio;
+            }
+
+            // Center the image on the page
+            const x = (pdfWidth - finalWidth) / 2;
+            const y = (pdfHeight - finalHeight) / 2;            // Add title to the PDF
+            pdf.setFontSize(16);
+            pdf.setTextColor(22, 57, 90);
+            pdf.text('Case Report', pdfWidth / 2, 15, { align: 'center' });
+
+            // Add the main content
+            pdf.addImage(imgData, 'PNG', x, y, finalWidth, finalHeight, undefined, 'FAST');
+
+            // Add page numbers
+            const pageCount = pdf.internal.getNumberOfPages();
+            for (let i = 1; i <= pageCount; i++) {
+                pdf.setPage(i);
+                pdf.setFontSize(10);
+                pdf.setTextColor(100);
+                pdf.text(`Page ${i} of ${pageCount}`, pdfWidth / 2, pdfHeight - 10, { align: 'center' });
+            }
 
             pdf.save('CaseReport.pdf');
         });

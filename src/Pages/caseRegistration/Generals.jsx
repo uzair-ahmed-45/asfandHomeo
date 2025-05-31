@@ -12,7 +12,7 @@ export default function Generals() {
     const [popupMessage, setPopupMessage] = useState('');
     const { modal, setmodal, loader, setloader, complainId, setcomplainId } = useModal();
     const nav = useNavigate()
-
+    const [loading, setLoading] = useState(false)
     const [generalData, setgeneralData] = useState({
         thermal: [],
         thermalOther: "",
@@ -66,7 +66,6 @@ export default function Generals() {
 
     const navigation = (path) => {
         nav(path)
-        setloader(true)
     }
 
     const next = async (e) => {
@@ -91,8 +90,8 @@ export default function Generals() {
 
         };
         try {
+            setLoading(true)
             const response = await put("/case/generals", generalObject)
-            setloader(true)
             if (response) {
                 setcomplainId(response.data.complain._id)
                 nav('/case/mind')
@@ -110,6 +109,8 @@ export default function Generals() {
                 setPopupMessage("Something went wrong")
             }
 
+        }finally{
+            setLoading(false)
         }
     }
     return (
@@ -496,7 +497,7 @@ export default function Generals() {
                         </div>
                         <div className='flex justify-center gap-x-5'>
                             <Button name="Skip" class="rounded-lg hover:transform-none mt-5 w-full" click={() => navigation('/case/mind')} />
-                            <Button name="Next" class="rounded-lg hover:transform-none mt-5 w-full" click={next} />
+                            <Button isLoading={loading} name="Next" class="rounded-lg hover:transform-none mt-5 w-full" click={next} />
                         </div>
 
                     </form>

@@ -12,10 +12,10 @@ export default function Nature() {
     const [popupMessage, setPopupMessage] = useState('');
     const { modal, setmodal, loader, setloader, complainId, setcomplainId } = useModal();
     const nav = useNavigate()
+    const [loading, setLoading] = useState(false)
 
     const navigation = (path) => {
         nav(path)
-        setloader(true)
     }
 
     const [mindData, setmindData] = useState({
@@ -57,8 +57,8 @@ export default function Nature() {
 
         };
         try {
+            setLoading(true)
             const response = await put("/case/nature", natureObject)
-            setloader(true)
             if (response) {
                 setcomplainId(response.data.complain._id)
                 navigation('/case/pastHistory')
@@ -74,6 +74,8 @@ export default function Nature() {
                 setmodal(true)
                 setPopupMessage("Something went wrong")
             }
+        }finally{
+            setLoading(false)
         }
     }
 
@@ -164,7 +166,7 @@ export default function Nature() {
                         </div>
                         <div className='flex justify-center gap-x-5'>
                             <Button name="Skip" class="rounded-lg hover:transform-none mt-5 w-full" click={() => navigation('/case/pastHistory')} />
-                            <Button name="Next" class="rounded-lg hover:transform-none mt-5 w-full" click={next} />
+                            <Button name="Next" isLoading={loading} class="rounded-lg hover:transform-none mt-5 w-full" click={next} />
                         </div>
 
                     </form>

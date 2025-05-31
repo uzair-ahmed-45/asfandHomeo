@@ -12,6 +12,7 @@ export default function Mind() {
     const [popupMessage, setPopupMessage] = useState('');
     const { modal, setmodal, loader, setloader, complainId, setcomplainId } = useModal();
     const nav = useNavigate()
+    const [loading, setLoading] = useState(false)
 
     const [mindData, setmindData] = useState({
         familyRelation: [],
@@ -50,7 +51,6 @@ export default function Mind() {
 
     const navigation = (path) => {
         nav(path)
-        setloader(true)
     }
 
     const next = async (e) => {
@@ -65,8 +65,8 @@ export default function Mind() {
             personality: mindData.personality.concat(mindData.personalityOther ? [mindData.personalityOther] : []).join(', '),
         };
         try {
+            setLoading(true)
             const response = await put("/case/mind", mindObject)
-            setloader(true)
             if (response) {
                 setcomplainId(response.data.complain._id)
                 nav('/case/nature')
@@ -82,6 +82,8 @@ export default function Mind() {
                 setmodal(true)
                 setPopupMessage("Something went wrong")
             }
+        }finally{
+            setLoading(false)
         }
     }
 
@@ -240,7 +242,7 @@ export default function Mind() {
                         </div>
                         <div className='flex justify-center gap-x-5'>
                             <Button name="Skip" class="rounded-lg hover:transform-none mt-5 w-full" click={() => navigation('/case/nature')} />
-                            <Button name="Next" class="rounded-lg hover:transform-none mt-5 w-full" click={next} />
+                            <Button name="Next" isLoading={loading} class="rounded-lg hover:transform-none mt-5 w-full" click={next} />
                         </div>
 
 

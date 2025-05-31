@@ -13,6 +13,7 @@ import { jwtDecode } from "jwt-decode"
 export default function SignIn() {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false)
   const [error, seterror] = useState({})
   const [popupMessage, setPopupMessage] = useState('');
   const { modal, setmodal, verifyUser, setverifyUser, loader, setloader, loggedInDoctor, setLoggedInDoctor } = useModal()
@@ -56,6 +57,7 @@ export default function SignIn() {
       password: password,
     };
     if (validateDoctor(doctor)) {
+      setLoading(true)
       try {
         const response = await post('/doctor/login', doctor)
         if (response) {
@@ -63,7 +65,6 @@ export default function SignIn() {
           const doctor = response.data
           setLoggedInDoctor(doctor)
           navigate("/home");
-          setloader(true)
           setverifyUser(true)
           // Decode tokens to get expiration time
           const accessToken = response.data.accessToken;
@@ -79,8 +80,12 @@ export default function SignIn() {
           setCookie('refresh_token', refreshToken, { path: '/', expires: refreshTokenExpires });
         }
       } catch (error) {
+        console.log(error);
+        
         setPopupMessage(error.response.data.message)
         setmodal(true)
+      }finally{
+        setLoading(false)
       }
     }
   }
@@ -113,7 +118,7 @@ export default function SignIn() {
                   <div className='flex justify-center w-full '>
                     <h1 className='text-[rgb(22,57,90)] font-bold text-xs md:text-sm text-center cursor-pointer'>Forget Password?</h1>
                   </div>
-                  <Button name="Sign In" click={handleSignIn} />
+                  <Button name="Sign In" click={handleSignIn} isLoading={loading} />
                 </form>
               </div>
               {popupMessage && modal && <Popup text={popupMessage} />}

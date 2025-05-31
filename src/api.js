@@ -4,7 +4,7 @@ const instance = axios.create({
     baseURL: 'https://verceldemo-ppzn.onrender.com/api',
     
 });
-
+// https://verceldemo-ppzn.onrender.com/api
 
 export const get = async (endpoint) => {
     try {

@@ -9,7 +9,6 @@ export default function NewCase() {
     const nav = useNavigate()
     const navigation = (path) => {
         nav(path)
-        setloader(true)
     }
     return (
         <>

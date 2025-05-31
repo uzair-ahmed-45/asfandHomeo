@@ -10,8 +10,6 @@ export default function MobNavlist() {
     const navigation = (path) => {
         nav(path)
         setloader(true)
-
-
     }
     return (
         <>

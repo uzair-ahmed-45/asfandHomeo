@@ -8,7 +8,7 @@ export default function Navlist() {
 
     const navigation = (path) => {
         nav(path)
-        setloader(true)
+        // setloader(true)
 
 
     }

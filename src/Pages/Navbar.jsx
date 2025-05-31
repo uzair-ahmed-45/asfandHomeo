@@ -26,7 +26,7 @@ export default function Navbar() {
 
         // Navigate to the login page
         nav('/');
-        setloader(true);
+        // setloader(true);
     }
     return (
         <>

@@ -13,6 +13,7 @@ export default function () {
 
   useEffect(() => {
     const fetchtotalPatient = async () => {
+      setloader(true)
       try {
         const response = await get('/patient/list');
         const patients = response.data;
@@ -23,26 +24,30 @@ export default function () {
         console.log(totalCases);
       } catch (error) {
         console.log(error);
+      } finally {
+        setloader(false)
       }
     }
     fetchtotalPatient()
   }, [])
-
-  const counters = document.querySelectorAll(".counter");
-
-  counters.forEach((counter) => {
-    counter.innerText = "0";
-    const updateCounter = () => {
-      const target = +counter.getAttribute("data-target");
-      const count = +counter.innerText;
-      const increment = target / 200;
-      if (count < target) {
-        counter.innerText = `${Math.ceil(count + increment)}`;
-        setTimeout(updateCounter, 50);
-      } else counter.innerText = target;
-    };
-    updateCounter();
-  });
+  useEffect(() => {
+    if (!loader) {
+      const counters = document.querySelectorAll(".counter");
+      counters.forEach((counter) => {
+        counter.innerText = "0";
+        const updateCounter = () => {
+          const target = +counter.getAttribute("data-target");
+          const count = +counter.innerText;
+          const increment = target / 200;
+          if (count < target) {
+            counter.innerText = `${Math.ceil(count + increment)}`;
+            setTimeout(updateCounter, 20);
+          } else counter.innerText = target;
+        };
+        updateCounter();
+      });
+    }
+  }, [loader, patients, totalCases]);
 
 
   return (
@@ -66,8 +71,6 @@ export default function () {
 
         </>
       }
-
-
     </>
   )
 }
